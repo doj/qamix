@@ -1,5 +1,6 @@
 #include "midicombobox.h"
 #include "midiguicomponent.h"
+#include "defines.h"
 
 MidiComboBox::MidiComboBox(const QStringList& itemNames, int value, QWidget * parent, QString name)
            : MidiGUIcomponent(parent, name) {
@@ -20,13 +21,13 @@ MidiComboBox::~MidiComboBox(){
 void MidiComboBox::setMidiValue(int value) {
 
   if (!controllerOK) {
-    if (value > 10000) {
-      controllerOK = abs(value - 10000 - getMidiValue()) < 4;
+    if (value > NEGATIVE_VALUE_OFFSET) {
+      controllerOK = abs(value - NEGATIVE_VALUE_OFFSET - getMidiValue()) < 4;
     } else {
       controllerOK = abs(getMidiValue() - value) < 4;
     }
   } else {
-    if (value > 10000) {
+    if (value > NEGATIVE_VALUE_OFFSET) {
       combobox->setCurrentItem(int((float)(combobox->count()-1) / 127.0 * (float)(10127-value)));
     } else {
       combobox->setCurrentItem(int((float)(combobox->count()-1) / 127.0 * (float)value));

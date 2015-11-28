@@ -1,4 +1,5 @@
 #include "midicontroller.h"
+#include "defines.h"
 
 MidiController::MidiController(){
 
@@ -24,6 +25,6 @@ void MidiController::sendMidiValue(int value) {
   if (sign > 0) {
     emit midiValueChanged(value);
   } else {
-    emit midiValueChanged(10000 + value);
+    emit midiValueChanged(NEGATIVE_VALUE_OFFSET + value);
   }
 }

@@ -1,5 +1,6 @@
 #include "midicheckbox.h"
 #include "midiguicomponent.h"
+#include "defines.h"
 
 MidiCheckBox::MidiCheckBox(bool on, QWidget * parent, QString name)
            : MidiGUIcomponent(parent, name) {
@@ -17,8 +18,8 @@ MidiCheckBox::~MidiCheckBox(){
 
 void MidiCheckBox::setMidiValue(int value) {
 
-  if (value > 10000) {
-    checkbox->setChecked((value-10000) <= 63);
+  if (value > NEGATIVE_VALUE_OFFSET) {
+    checkbox->setChecked((value - NEGATIVE_VALUE_OFFSET) <= 63);
   } else {
     checkbox->setChecked(value > 63);
   }

@@ -1,5 +1,6 @@
 #include "midislider.h"
 #include "midiguicomponent.h"
+#include "defines.h"
 
 MidiSlider::MidiSlider(int minValue, int maxValue, int pageStep, int value,
                        Qt::Orientation orientation, QWidget * parent, QString name)
@@ -25,14 +26,14 @@ void MidiSlider::setMidiValue(int value) {
     controllerOK = true;
 
   if (!controllerOK) {
-    if (value > 10000) {
-      controllerOK = abs(value - 10000 - getMidiValue()) < 4;
+    if (value > NEGATIVE_VALUE_OFFSET) {
+      controllerOK = abs(value - NEGATIVE_VALUE_OFFSET - getMidiValue()) < 4;
     } else {
       controllerOK = abs(getMidiValue() - value) < 4;
     }
   } else {
-    if (value > 10000) {
-      slider->setValue((int)(slider->minValue() + rint(float(slider->maxValue() - slider->minValue()) * (float)(value-10000) / 127.0)));
+    if (value > NEGATIVE_VALUE_OFFSET) {
+      slider->setValue((int)(slider->minValue() + rint(float(slider->maxValue() - slider->minValue()) * (float)(value-NEGATIVE_VALUE_OFFSET) / 127.0)));
     } else {
       slider->setValue((int)(slider->maxValue() - rint(float(slider->maxValue() - slider->minValue()) * (float)value / 127.0)));
     }
