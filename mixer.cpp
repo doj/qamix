@@ -4,85 +4,72 @@
 #include "parser.h"
 #include "mixer.h"
 #include "midicontroller.h"
+#include <vector>
 
-#if 0
-#include <stdio.h>
-#include <stdlib.h>
-#include <qstring.h>
-#include <qlabel.h>
-#include <qslider.h> 
-#include <qsocketnotifier.h>
-#include <qhbox.h>
-#include <qvbox.h>
-#include <qpushbutton.h>
-#include <qmainwindow.h>
-#include <qfiledialog.h>
-#include <qfile.h>
-#include <qxml.h>
-#include <alsa/asoundlib.h>
-#endif
-
-Mixer::Mixer(QString ctl_name, QString xml_name, int mode, QWidget *parent, QString name) : Q3VBox(parent, name) {
-
-  QString driver_name, xmldir, short_name, long_name, mixer_name;
-  snd_ctl_card_info_t *card_info;
+Mixer::Mixer(QString ctl_name, QString xml_name, int mode, QWidget *parent, QString name) :
+    Q3VBox(parent, name)
+{
+    QString driver_name, xmldir, short_name, long_name, mixer_name;
+    snd_ctl_card_info_t *card_info;
 
 //  fprintf(stderr, "Mixer::Mixer %s %s %d\n", ctl_name.latin1(), xml_name.latin1(), mode);
 
-  hctlData = new HctlData();
-  open_mixer(ctl_name);
-  initHctlNotifier();
-  initControls();
-  gui = new Gui(hctlData, this);
+    hctlData = new HctlData();
+    open_mixer(ctl_name);
+    initHctlNotifier();
+    initControls();
+    gui = new Gui(hctlData, this);
 
-  Parser *parser = new Parser(hctlData, gui, mode);
-  if (xml_name.contains("NO_NAME_SPECIFIED")) {
+    QFile f;
+
+    Parser *parser = new Parser(hctlData, gui, mode);
+    if (xml_name.contains("NO_NAME_SPECIFIED")) {
 #ifdef WITHKDE
-  xmldir = "/.kamix/";
+	xmldir = "/.kamix/";
 #else
-  xmldir = "/.qamix/";  
+	xmldir = "/.qamix/";  
 #endif
-    snd_ctl_card_info_alloca(&card_info);
-    snd_ctl_card_info(hctlData->ctl_handle, card_info);
-    driver_name = QString(snd_ctl_card_info_get_driver(card_info));
-    short_name = QString(snd_ctl_card_info_get_name(card_info));
-    long_name = QString(snd_ctl_card_info_get_longname(card_info));
-    mixer_name = QString(snd_ctl_card_info_get_mixername(card_info));
-    driver_name = driver_name.stripWhiteSpace();
-    short_name = short_name.stripWhiteSpace();
-    long_name = long_name.stripWhiteSpace();
-    mixer_name = mixer_name.stripWhiteSpace();
+	snd_ctl_card_info_alloca(&card_info);
+	snd_ctl_card_info(hctlData->ctl_handle, card_info);
+	driver_name = QString(snd_ctl_card_info_get_driver(card_info));
+	short_name = QString(snd_ctl_card_info_get_name(card_info));
+	long_name = QString(snd_ctl_card_info_get_longname(card_info));
+	mixer_name = QString(snd_ctl_card_info_get_mixername(card_info));
+	driver_name = driver_name.stripWhiteSpace();
+	short_name = short_name.stripWhiteSpace();
+	long_name = long_name.stripWhiteSpace();
+	mixer_name = mixer_name.stripWhiteSpace();
 //    fprintf(stderr, "--> Name: %s\n", short_name.latin1());
 //    fprintf(stderr, "--> Long Name: %s\n", long_name.latin1());
 //    fprintf(stderr, "--> Mixer Name: %s\n", mixer_name.latin1());
-    xml_name = QString(getenv("HOME")) + xmldir + driver_name.lower() + ".xml";    
-//    printf("%s\n", xml_name.latin1());
-    QFile f(xml_name);
-    if (!f.exists()) {
-      xml_name = QString(getenv("HOME")) + xmldir + "default.xml";
-//      printf("%s\n", xml_name.latin1());
-      QFile f(xml_name);
-      if (!f.exists()) {
-        xml_name = QString(QAMIX_SHARE_DIR) + "/" + driver_name.lower() + ".xml";
-//        printf("%s\n", xml_name.latin1());
-        QFile f(xml_name);
-        if (!f.exists()) {
-          xml_name = QString(QAMIX_SHARE_DIR) + "/default.xml";               
-//          printf("%s\n", xml_name.latin1());
-          QFile f(xml_name);
-        }
-      }
+
+	std::vector<QString> filenames = {
+	    QString(getenv("HOME")) + xmldir + driver_name.lower() + ".xml",
+	    QString(getenv("HOME")) + xmldir + "default.xml",
+	    QString(QAMIX_SHARE_DIR) + "/" + driver_name.lower() + ".xml",
+	    QString(QAMIX_SHARE_DIR) + "/default.xml",
+	    "./default.xml"
+	};
+	for(auto fn : filenames) {
+	    fprintf(stderr, "checking %s ...\n", fn.latin1());
+	    QFile f(fn);
+	    if (f.exists()) {
+		xml_name = fn;
+		break;
+	    }
+	}
+    } else {
+	fprintf(stderr, "checking %s ...\n", xml_name.latin1());
     }
-  }
-  QFile f(xml_name);
-  if (!f.exists()) {
-    fprintf(stderr, "File %s does not exist.\n", xml_name.latin1());
-    exit(-1);
-  }
-  QXmlInputSource source(&f);
-  QXmlSimpleReader reader;
-  reader.setContentHandler(parser);
-  reader.parse(source);
+    f.setFileName(xml_name);
+    if (!f.exists()) {
+	fprintf(stderr, "could not find config file!\n");
+	exit(-1);
+    }
+    QXmlInputSource source(&f);
+    QXmlSimpleReader reader;
+    reader.setContentHandler(parser);
+    reader.parse(source);
 }
 
 Mixer::~Mixer() {
