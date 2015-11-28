@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-09-18 16:58+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: kamix.cpp:40
+msgid "KAMix - Audio Mixer"
+msgstr "KAMix - Audio Mixer"
+
+#: kamix.cpp:68 main.cpp:245
+msgid "&Full"
+msgstr "&Vollständig"
+
+#: kamix.cpp:69 main.cpp:246
+msgid "&Master only"
+msgstr "&Nur Lautstärke"
+
+#: kamix.cpp:70 main.cpp:247
+msgid "&Simple"
+msgstr "Ver&einfacht"
+
+#: kamix.cpp:76
+msgid "Show Mixer &Window"
+msgstr "Mixerfenster &anzeigen"
+
+#: kamix.cpp:80
+msgid "&About KAmix"
+msgstr "Über KAMix"
+
+#: kamix.cpp:84 main.cpp:244
+msgid "&Quit"
+msgstr "Beenden"
+
+#: kamix.cpp:107
+msgid ""
+"Should KAMix start automatically\n"
+"when you log in?"
+msgstr "KAMix beim Anmelden automatisch starten ?"
+
+#: main.cpp:211
+msgid "QAMix"
+msgstr "QAMix"
+
+#: main.cpp:231
+msgid "&File"
+msgstr "&Datei"
+
+#: main.cpp:232
+msgid "&View"
+msgstr "&Ansicht"
+
+#: main.cpp:234
+msgid "&Soundcard"
+msgstr "&Soundkarte"
+
+#: main.cpp:237
+msgid "&About"
+msgstr "&Über"
+
+#: main.cpp:243
+msgid "&Open"
+msgstr "Öffnen"
+
+#: main.cpp:248 mixlaunch.cpp:81
+msgid "About QAMix"
+msgstr "Über QAMix"
+
+#: mixlaunch.cpp:79
+msgid "About KAMix"
+msgstr "Über KAMix"

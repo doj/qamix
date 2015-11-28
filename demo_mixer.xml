@@ -1,0 +1,104 @@
+<mixer>
+<full>
+  <sliderNumbers style="frame100" />
+  <tab name="Playback">
+    <vgroup>
+      <element> 
+        <alsaname> Master Playback Volume </alsaname> 
+        <mixname> Master </mixname>
+        <midi index="0" type="10" ch="0" param="1" sign="1" />
+        <midi index="1" type="10" ch="0" param="2" sign="-1" />
+      </element>
+      <element> 
+        <alsaname> Master Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <midi index="0" type="10" ch="0" param="5" sign="1" />
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element> 
+        <alsaname> PCM Playback Volume </alsaname>
+        <mixname> PCM </mixname>
+        <midi index="0" type="10" ch="0" param="3" sign="-1" />  
+        <midi index="1" type="10" ch="0" param="4" sign="1" />
+      </element>
+      <element> 
+        <alsaname> PCM Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <midi index="0" type="10" ch="0" param="6" sign="1" />
+        <inverse />
+      </element>
+    </vgroup>
+   </tab>
+  <tab name="Ext. Source Playback">
+    <vgroup>
+      <element>
+        <alsaname> Line Playback Volume </alsaname>
+        <mixname> Line </mixname>
+        <midi index="0" type="10" ch="0" param="6" sign="1" />  
+        <midi index="1" type="10" ch="0" param="1" sign="-1" />
+      </element>
+      <element>
+        <alsaname> Line Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <midi index="0" type="10" ch="0" param="3" sign="1" />
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> CD Playback Volume </alsaname>
+        <mixname> CD </mixname>
+        <midi index="0" type="10" ch="0" param="2" sign="1" />  
+        <midi index="1" type="10" ch="0" param="4" sign="-1" />
+      </element>
+      <element>
+        <alsaname> CD Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <midi index="0" type="10" ch="0" param="5" sign="1" />
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> Mic Playback Volume </alsaname>
+        <midi index="0" type="10" ch="0" param="5" sign="1" />  
+        <mixname> Mic </mixname>
+      </element>
+      <element>
+        <alsaname> Mic Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <midi index="0" type="10" ch="0" param="1" sign="1" />
+        <inverse />
+      </element>
+    </vgroup>
+  </tab>
+  <tab name="Capture">
+    <vgroup>
+      <element>
+        <alsaname> Capture Volume </alsaname>
+        <mixname> Capture </mixname>
+        <midi index="0" type="10" ch="0" param="3" sign="1" />
+        <midi index="1" type="10" ch="0" param="5" sign="-1" />
+      </element>
+      <element> 
+        <alsaname> Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+        <midi index="0" type="10" ch="0" param="4" sign="1" />
+      </element>
+    </vgroup>      
+    <vgroup>
+      <element>
+        <alsaname> Capture Source </alsaname>
+        <midi index="0" type="10" ch="0" param="2" sign="1" />
+      </element>
+      <space />
+      <element>    
+        <alsaname> Mic Boost (+20dB) </alsaname>
+        <midi index="0" type="10" ch="0" param="6" sign="1" />
+      </element>   
+    </vgroup>
+  </tab>
+</full>
+</mixer>

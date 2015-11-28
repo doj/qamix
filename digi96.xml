@@ -1,0 +1,82 @@
+<mixer>
+<full>
+  <sliderNumbers style="frame100" /> 
+  <vgroup frame="raised" width="5">
+      <element>
+        <alsaname> DAC Playback Volume </alsaname>
+        <mixname> DAC Volume </mixname>
+      </element>
+  </vgroup>
+  <space />
+  <vgroup>
+      <element>
+        <alsaname> Attenuation </alsaname>
+        <mixname> Attenuation </mixname>
+      </element>
+      <element> 
+        <alsaname> Monitor Tracks </alsaname>
+        <mixname> Monitor Tracks </mixname>  
+      </element>
+      <element>
+        <alsaname> Clock Mode </alsaname>
+        <mixname> Sample Clock Source </mixname>
+      </element>
+      <element>
+        <alsaname> Sample Clock Source </alsaname>
+        <mixname> Sample Clock Source </mixname>
+      </element>
+  </vgroup>
+  <space />
+  <vgroup>
+      <element>
+        <alsaname> Input Connector </alsaname>
+        <mixname> Input Connector </mixname>
+      </element>
+      <space />
+      <element>
+        <alsaname> Loopback Input </alsaname>
+        <mixname> Loopback Input </mixname>
+      </element>
+   </vgroup>
+</full>
+
+<master>
+  <sliderNumbers style="frame100" />
+  <vgroup frame="raised" width="5">
+      <element>
+        <alsaname> DAC Playback Volume </alsaname>
+        <mixname> DAC Volume </mixname>
+      </element>
+  </vgroup>
+</master>
+
+<simple>
+  <sliderNumbers style="frame100" />
+  <vgroup frame="raised" width="5">
+      <element>
+        <alsaname> DAC Playback Volume </alsaname>
+        <mixname> DAC Volume </mixname>
+      </element>
+  </vgroup>
+  <space />
+  <vgroup>
+      <element>
+        <alsaname> Attenuation </alsaname>
+        <mixname> Attenuation </mixname>
+      </element>
+  </vgroup>
+  <space />
+  <vgroup>
+      <element>
+        <alsaname> Input Connector </alsaname>
+        <mixname> Input Connector </mixname>
+      </element>
+      <space />
+      <element>
+        <alsaname> Loopback Input </alsaname>
+        <mixname> Loopback Input </mixname>
+      </element>
+   </vgroup>
+</simple>
+
+</mixer>

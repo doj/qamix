@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=kamix
+Name=KAMix
+Icon=kamix
+
+X-DCOP-ServiceType=Unique
+
+X-KDE-StartupNotify=false
+X-KDE-autostart-condition=kamixrc:General:Autostart:true
+X-KDE-autostart-after=panel

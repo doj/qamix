@@ -1,0 +1,21 @@
+<mixer>
+<full>
+  <sliderNumbers style="frame100" /> 
+  <vgroup frame="raised" width="5">
+      <element>
+        <alsaname> Sample Clock Source </alsaname>
+        <mixname> Sample Clock Source </mixname>
+      </element>
+      <space />
+      <element>
+        <alsaname> Input Connector </alsaname>
+        <mixname> Input Connector </mixname>
+      </element>
+      <space />
+      <element>
+        <alsaname> Loopback Input </alsaname>
+        <mixname> Loopback Input </mixname>
+      </element>
+   </vgroup>
+</full>
+</mixer>

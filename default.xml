@@ -1,0 +1,131 @@
+<mixer>
+<full>
+  <sliderNumbers style="frame100" />
+  <tab name="Playback">
+    <vgroup> 
+      <element> 
+        <alsaname> Master Playback Volume </alsaname> 
+        <mixname> Master </mixname>
+      </element>
+      <element> 
+        <alsaname> Master Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element> 
+        <alsaname> PCM Playback Volume </alsaname>
+        <mixname> PCM </mixname>
+      </element>
+      <element> 
+        <alsaname> PCM Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+   </tab>
+  <tab name="Ext. Source Playback">
+    <vgroup>
+      <element>
+        <alsaname> Line Playback Volume </alsaname>
+        <mixname> Line </mixname>
+      </element>
+      <element>
+        <alsaname> Line Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> CD Playback Volume </alsaname>
+        <mixname> CD </mixname>
+      </element>
+      <element>
+        <alsaname> CD Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> Mic Playback Volume </alsaname>
+        <mixname> Mic </mixname>
+      </element>
+      <element>
+        <alsaname> Mic Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+  </tab>
+  <tab name="Capture">
+    <vgroup>
+      <element>
+        <alsaname> Capture Volume </alsaname>
+        <mixname> Capture </mixname>
+      </element>
+      <element> 
+        <alsaname> Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>      
+    <vgroup>
+      <element>
+        <alsaname> Capture Source </alsaname>
+      </element>
+      <space />
+      <element>    
+        <alsaname> Mic Boost (+20dB) </alsaname>
+      </element>   
+    </vgroup>
+  </tab>
+</full>
+
+<master>
+    <hgroup frame="raised" width="3">
+      <vgroup>
+        <sliderNumbers style="frame100" />
+        <element>    
+          <alsaname> Master Playback Volume </alsaname>
+          <mixname> Master </mixname>
+          <single />
+        </element>
+        <sliderNumbers style="simple100" />
+        <element>  
+          <alsaname> Master Playback Switch </alsaname>
+          <mixname> Mute </mixname>
+          <inverse />
+        </element> 
+      </vgroup>
+    </hgroup>
+</master>
+
+<simple>
+    <vgroup> 
+      <element> 
+        <alsaname> Master Playback Volume </alsaname> 
+        <mixname> Master </mixname>
+        <single />
+      </element>
+      <element> 
+        <alsaname> Master Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element> 
+        <alsaname> PCM Playback Volume </alsaname>
+        <mixname> PCM </mixname>
+        <single />
+      </element>
+      <element> 
+        <alsaname> PCM Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+</simple>
+</mixer>

@@ -1,0 +1,453 @@
+<mixer>
+<full>
+  <tab name="Playback">
+    <group name="Master" stretch="1">
+      <vgroup frame="raised" width="3">
+        <sliderNumbers style="frame100" />
+        <element> 
+          <alsaname> Master Playback Volume </alsaname>
+          <mixname> Master </mixname>  
+        </element>
+        <sliderNumbers style="simple100" />
+        <element>
+          <alsaname> Master Playback Switch </alsaname>
+          <mixname> Mute </mixname>
+          <inverse />
+        </element>
+      </vgroup>
+    </group>
+    <group name="Stereo" stretch="4">
+      <vgroup>
+        <element stretch="21">
+          <alsaname> PCM Playback Volume </alsaname>
+          <mixname> PCM </mixname>
+        </element>
+        <vgroup stretch="5">
+          <space />
+          <element>
+            <alsaname> PCM Playback Switch </alsaname>
+            <mixname> Mute </mixname>
+            <inverse />
+          </element>
+          <space />
+        </vgroup>
+      </vgroup>
+      <vgroup>
+        <element stretch="21"> 
+          <alsaname> Wave Playback Volume </alsaname>
+          <mixname> Wave </mixname>  
+        </element>
+        <space stretch="5" />
+      </vgroup>  
+      <vgroup>
+        <element stretch="21"> 
+          <alsaname> Music Playback Volume </alsaname>
+          <mixname> Music </mixname>  
+        </element>
+        <space stretch="5" />
+      </vgroup>
+    </group>
+    <group name="Surround" stretch="7">  
+      <vgroup>  
+        <element stretch="50">
+          <alsaname> Surround Digital Playback Volume </alsaname>
+          <mixname> Surround Digital </mixname>
+        </element>
+        <space stretch="2" />
+      </vgroup>
+      <vgroup>
+        <element stretch="50">
+          <alsaname> Wave Surround Playback Volume </alsaname>
+          <mixname> Wave Surround </mixname>
+        </element>
+        <space stretch="2" />
+      </vgroup>
+      <space />
+      <vgroup>
+        <element stretch="50">
+          <alsaname> Center Playback Volume </alsaname>
+          <mixname> Center </mixname>
+        </element>
+        <space stretch="9" />
+      </vgroup>
+      <vgroup>
+        <element stretch="50">
+          <alsaname> LFE Playback Volume </alsaname>
+          <mixname> LFE </mixname>
+        </element>
+        <space stretch="9" />
+      </vgroup>
+      <vgroup>
+        <element stretch="50">
+          <alsaname> Wave Center Playback Volume </alsaname>
+          <mixname> Wave Center </mixname>
+        </element>
+        <space stretch="9" />
+      </vgroup>
+      <vgroup>
+        <element stretch="50">
+          <alsaname> Wave LFE Playback Volume </alsaname>
+          <mixname> Wave LFE </mixname>
+        </element>
+        <space stretch="9" />
+      </vgroup>
+    </group>
+  </tab>
+  <tab name="Tone/3D Control">
+    <group name="Tone" stretch="3">
+      <element stretch="2">
+        <alsaname> Tone Control - Bass </alsaname>
+        <mixname> Bass </mixname>
+      </element>
+      <element stretch="2">
+        <alsaname> Tone Control - Treble </alsaname>
+        <mixname> Treble </mixname>
+      </element>
+      <element stretch="1"> 
+        <alsaname> Tone Control - Switch </alsaname>
+        <mixname> Enable Tone Control </mixname>  
+      </element>
+    </group>
+    <group name="3D Control" stretch="1">
+      <sliderNumbers style="simple" />
+      <element> 
+        <alsaname> 3D Control Sigmatel - Depth </alsaname>
+        <mixname> 3D Depth </mixname>  
+      </element>
+      <sliderNumbers style="simple100" />
+      <element>
+        <alsaname> 3D Control - Switch </alsaname>
+        <mixname> Enable 3D Control </mixname>  
+      </element>
+    </group>
+  </tab>
+  <tab name="Ext. Source Playback">
+     <element> 
+        <alsaname> AC97 Playback Volume </alsaname> 
+        <mixname> AC97 </mixname>
+      </element>   
+    <vgroup>
+      <element>
+        <alsaname> Line Playback Volume </alsaname>
+        <mixname> Line </mixname>
+      </element>
+      <element>
+        <alsaname> Line Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> CD Playback Volume </alsaname>
+        <mixname> CD </mixname>
+      </element>
+      <element>
+        <alsaname> CD Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>       
+      <element>    
+        <alsaname> Video Playback Volume </alsaname>
+        <mixname> Video </mixname>
+      </element>
+     <element>  
+        <alsaname> Video Playback Switch </alsaname>
+        <mixname> Mute </mixname>  
+        <inverse />
+      </element>   
+    </vgroup>      
+    <vgroup>       
+      <element>    
+        <alsaname> Aux Playback Volume </alsaname>
+        <mixname> Aux </mixname>
+      </element>
+      <element> 
+        <alsaname> Aux Playback Switch </alsaname>
+        <mixname> Mute </mixname>  
+        <inverse />
+      </element>   
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> Mic Playback Volume </alsaname>
+        <mixname> Mic </mixname>
+      </element>
+      <element>
+        <alsaname> Mic Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> Phone Playback Volume </alsaname>
+        <mixname> Phone </mixname>
+      </element>
+     <element>
+        <alsaname> Phone Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> PC Speaker Playback Volume </alsaname>
+        <mixname> PC Speaker </mixname>
+      </element>
+      <element>
+        <alsaname> PC Speaker Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+  </tab>
+  <tab name="Capture">
+    <vgroup>
+      <element>
+        <alsaname> Capture Volume </alsaname>
+        <mixname> Capture </mixname>
+      </element>
+      <element> 
+        <alsaname> Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>   
+      <element>    
+        <alsaname> AC97 Capture Volume </alsaname>
+        <mixname> AC97 Capture </mixname>   
+      </element>
+    <vgroup>
+      <element>
+        <alsaname> Wave Capture Volume </alsaname>
+        <mixname> Wave Capture </mixname>
+      </element>
+      <element>
+        <alsaname> Wave Capture Switch </alsaname>
+        <mixname> Activate </mixname>  
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> Music Capture Volume </alsaname>
+        <mixname> Music Capture </mixname>
+      </element>
+      <element>
+        <alsaname> Music Capture Switch </alsaname>
+        <mixname> Activate </mixname>  
+      </element>
+    </vgroup>
+    <vgroup>
+      <element> 
+        <alsaname> Surround Digital Capture Volume </alsaname>
+        <mixname> Surround Digital Capture </mixname>
+      </element>
+      <element> 
+        <alsaname> Surround Digital Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>
+  <group name="Capture Source Configuration">
+    <vgroup>
+      <element>
+        <alsaname> Capture Source </alsaname>
+      </element>
+      <space />
+      <hgroup>
+        <element> 
+          <alsaname> Mic Select </alsaname>
+        </element>
+        <space />
+        <element> 
+          <alsaname> Mic Boost (+20dB) </alsaname>
+        </element>
+      </hgroup>
+    </vgroup>
+  </group>
+  </tab>
+  <tab name="IEC958 Playback">
+      <element>
+        <alsaname> IEC958 Coaxial Playback Volume </alsaname>
+        <mixname> Coaxial </mixname>
+      </element>
+      <element>
+        <alsaname> IEC958 Optical Playback Volume </alsaname>
+        <mixname> Optical </mixname>
+      </element>
+      <vgroup>
+        <element>
+          <alsaname> IEC958 Optical Raw Playback Switch </alsaname>
+          <mixname> IEC958 Optical Raw Playback </mixname>
+        </element>
+        <space />
+      </vgroup>
+      <element>
+        <alsaname> TTL </alsaname>
+        <mixname>  TTL </mixname>
+      </element>
+    <vgroup>
+      <element>
+        <alsaname> SB Live Analog/Digital Output Jack </alsaname>
+        <mixname> A/D Output Jack </mixname>  
+      </element>
+      <space />
+    </vgroup>
+  </tab>
+  <tab name="IEC958 Capture">
+    <vgroup>
+      <element>
+        <alsaname> IEC958 Coaxial Capture Volume </alsaname>
+        <mixname> Coaxial Capture </mixname>
+      </element>
+      <element>
+        <alsaname> IEC958 Coaxial Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> IEC958 Optical Capture Volume </alsaname>
+        <mixname> Optical Capture </mixname>
+      </element>
+      <element>
+        <alsaname> IEC958 Optical Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> IEC958 TTL Capture Volume </alsaname>
+        <mixname> TTL Capture </mixname>
+      </element>
+      <element>
+        <alsaname> IEC958 TTL Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>
+  </tab>
+</full>
+
+<master>
+    <hgroup frame="raised" width="3">
+      <vgroup>
+        <sliderNumbers style="frame100" />
+        <element> 
+          <alsaname> Master Playback Volume </alsaname>
+          <mixname> Master </mixname>
+          <single />
+        </element>
+        <sliderNumbers style="simple100" />
+        <element>  
+          <alsaname> Master Playback Switch </alsaname>
+          <mixname> Mute </mixname>  
+          <inverse />  
+        </element>  
+      </vgroup>
+    </hgroup>
+</master>
+
+<simple>
+  <tab name="Playback">
+      <vgroup frame="raised" width="3">
+        <sliderNumbers style="frame100" />
+        <element> 
+          <alsaname> Master Playback Volume </alsaname>
+          <mixname> Master </mixname>  
+        </element>
+        <sliderNumbers style="simple100" />
+        <element>
+          <alsaname> Master Playback Switch </alsaname>
+          <mixname> Mute </mixname>
+          <inverse />
+        </element>
+      </vgroup>
+      <space />
+      <vgroup>
+        <element>
+          <alsaname> PCM Playback Volume </alsaname>
+          <mixname> PCM </mixname>
+        </element>
+        <vgroup>
+          <element>
+            <alsaname> PCM Playback Switch </alsaname>
+            <mixname> Mute </mixname>
+            <inverse />
+          </element>
+        </vgroup>
+      </vgroup>
+      <vgroup>
+        <element stretch="27"> 
+          <alsaname> Music Playback Volume </alsaname>
+          <mixname> Music </mixname>  
+        </element>
+        <space stretch="5" />
+      </vgroup>
+  </tab>
+  <tab name="Ext. Source Playback">
+    <vgroup>
+      <element>
+        <alsaname> Line Playback Volume </alsaname>
+        <mixname> Line </mixname>
+      </element>
+      <element>
+        <alsaname> Line Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> CD Playback Volume </alsaname>
+        <mixname> CD </mixname>
+      </element>
+      <element>
+        <alsaname> CD Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+    <vgroup>
+      <element>
+        <alsaname> Mic Playback Volume </alsaname>
+        <mixname> Mic </mixname>
+      </element>
+      <element>
+        <alsaname> Mic Playback Switch </alsaname>
+        <mixname> Mute </mixname>
+        <inverse />
+      </element>
+    </vgroup>
+  </tab>
+  <tab name="Capture">
+    <vgroup>
+      <element>
+        <alsaname> Capture Volume </alsaname>
+        <mixname> Capture </mixname>
+      </element>
+      <element> 
+        <alsaname> Capture Switch </alsaname>
+        <mixname> Activate </mixname>
+      </element>
+    </vgroup>   
+  <group name="Capture Source Configuration">
+    <vgroup>
+      <element>
+        <alsaname> Capture Source </alsaname>
+      </element>
+      <space />
+      <hgroup>
+        <element> 
+          <alsaname> Mic Select </alsaname>
+        </element>
+        <space />
+        <element> 
+          <alsaname> Mic Boost (+20dB) </alsaname>
+        </element>
+      </hgroup>
+    </vgroup>
+  </group>
+  </tab>
+</simple>
+</mixer>
