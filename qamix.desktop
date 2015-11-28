@@ -2,5 +2,8 @@
 Encoding=UTF-8
 Type=Application
 Exec=qamix
-Icon=kamix
+Icon=qamix
 Name=QAMix
+Categories=AudioVideo;Audio;Midi;Mixer;Qt;X-Alsa
+Terminal=false
+Comment=QAMix is a mixer program for ALSA that can be controlled via MIDI
