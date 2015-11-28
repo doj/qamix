@@ -20,8 +20,14 @@
 
 #ifdef WITHKDE
 KAMixUnique* app = 0;
+const char *aboutText =
+    "KAMix " QAMIX_VERSION "\nby Matthias Nagorni\n"
+    "KAMix is licensed under the GPL2.\n";
 #else
 QApplication* app = 0;
+const char *aboutText =
+    "QAMix " QAMIX_VERSION "\nby Matthias Nagorni\n"
+    "QAMix is licensed under the GPL2.\n";
 #endif
 
 MyConfig* myconfig;
@@ -120,7 +126,7 @@ int main(int argc, char *argv[])
         mode = atoi(optarg);
         break;
     case 'h':
-        printf("\n%s\n", aboutText.latin1());
+        printf("%s\n", aboutText);
         printf("-h, --help                      print this help message]\n");
 //        printf("-v, --verbose                   list all CTL elements\n");                            // Enable this later...
         printf("-p, --printDefaultGui           print default GUI description\n");
@@ -141,7 +147,7 @@ int main(int argc, char *argv[])
 
 #ifdef WITHKDE
 
-    KAboutData aboutData ("kamix", "KAMix", "0.0.7");
+    KAboutData aboutData ("kamix", "KAMix", QAMIX_VERSION);
     aboutData.addAuthor ("Matthias Nagorni", 0, "feedback@suse.de");
     aboutData.addAuthor ("Arvin Schnell", 0, "feedback@suse.de");
     KCmdLineArgs::init (argc, argv, &aboutData);

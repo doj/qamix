@@ -2,7 +2,7 @@
 
 PREFIX?=/usr/local
 BIN_DIR=$(DESTDIR)/$(PREFIX)/bin/
-DOC_DIR=$(DESTDIR)/$(PREFIX)/share/doc/
+DOC_DIR=$(DESTDIR)/$(PREFIX)/share/doc/$(EXE)-$(VERSION)
 
 QT_BASE_DIR?=/usr
 QT_LIB_DIR=$(QT_BASE_DIR)/lib64/qt4
@@ -13,10 +13,11 @@ X11_INCLUDE_DIR=/usr/X11R6/include
 
 MOC=$(QT_BIN_DIR)/moc
 
-CXXFLAGS+=-I$(QT_INCLUDE_DIR) -I$(X11_INCLUDE_DIR) -I. -O2 -g -Wall -std=c++11 -DQT3_SUPPORT=1 -MMD
+CXXFLAGS+=-I$(QT_INCLUDE_DIR) -I$(X11_INCLUDE_DIR) -I. -O2 -g -Wall -std=c++11 -DQT3_SUPPORT=1 -MMD -DQAMIX_VERSION=\"$(VERSION)\"
 LDFLAGS+=-L$(QT_LIB_DIR) -L$(X11_LIB_DIR) -L/usr/local/lib
 LDLIBS+=-lQtCore -lQtGui -lQt3Support -lQtXml -lasound -lm
 
+VERSION=0.0.8
 EXE=qamix
 CPP=	gui.cpp gui.moc.cpp parser.cpp \
 	hctl_element.cpp hctl_element.moc.cpp hctl_slider.cpp hctl_slider.moc.cpp \

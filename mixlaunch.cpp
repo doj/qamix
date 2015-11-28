@@ -68,13 +68,15 @@ void MixLaunch::closeMixer() {
   }
 }
 
+extern const char *aboutText;
 void MixLaunch::displayAbout() {
 
 #ifdef WITHKDE
-    aboutWidget->about(this, i18n("About KAMix"), aboutText);
+    auto title = i18n("About KAMix");
 #else
-    aboutWidget->about(this, i18n("About QAMix"), aboutText);
+    auto title = i18n("About QAMix");
 #endif
+    aboutWidget->about(this, title, aboutText);
     aboutWidget->raise();
 }
 
@@ -149,9 +151,9 @@ void MixLaunch::updateCaption() {
   snd_ctl_card_info(mixer->hctlData->ctl_handle, card_info);
   driver_name = QString(snd_ctl_card_info_get_driver(card_info));
 #ifdef WITHKDE
-  qs.sprintf("KAMix 0.0.7  -  %s", driver_name.latin1());
+  qs.sprintf("KAMix " QAMIX_VERSION "  -  %s", driver_name.latin1());
 #else
-  qs.sprintf("QAMix 0.0.7  -  %s", driver_name.latin1());
+  qs.sprintf("QAMix " QAMIX_VERSION "  -  %s", driver_name.latin1());
 #endif
   mainWindow->setCaption(qs);
 }
@@ -255,7 +257,7 @@ snd_seq_t *MixLaunch::open_seq() {
     fprintf(stderr, "Error creating sequencer port.\n");
     exit(1);
   }
-//  qs.sprintf("QAMix 0.0.7 - %d:%d", clientid, portid);
+//  qs.sprintf("QAMix " QAMIX_VERSION " - %d:%d", clientid, portid);
 //  ((QMainWindow *)parent())->setCaption(qs);
   return(seq_handle);
 }

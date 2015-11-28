@@ -19,18 +19,6 @@
 #include <alsa/asoundlib.h>
 #endif
 
-#ifdef WITHKDE
-const QString aboutText = "KAMix 0.0.7\nby Matthias Nagorni\n"
-                          "KDE Version by Arvin Schnell\n"
-                          "(c)2003 SuSE AG Nuremberg\n\n"
-                          "KAMix is licensed under the GPL.\n";
-#else
-const QString aboutText = "QAMix 0.0.7\nby Matthias Nagorni\n"
-                          "KDE Version by Arvin Schnell\n"
-                          "(c)2003 SuSE AG Nuremberg\n\n"
-                          "QAMix is licensed under the GPL.\n";
-#endif
-
 class MixLaunch : public Q3VBox
 {
   Q_OBJECT
