@@ -8,7 +8,8 @@ MidiSlider::MidiSlider(int minValue, int maxValue, int pageStep, int value,
   auto sliderContainer = new Q3HBox(this);
   new QWidget (sliderContainer);
   slider = new QSlider(minValue, maxValue, pageStep, 
-                       value, orientation, sliderContainer);  
+                       value, orientation, sliderContainer);
+  slider->setInvertedAppearance(true);
   new QWidget (sliderContainer);
   slider->setTickInterval((abs(maxValue) + abs(minValue)) / 10);
   slider->setTickmarks(QSlider::Left);
