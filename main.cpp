@@ -24,7 +24,7 @@ const char *aboutText =
     "KAMix " QAMIX_VERSION "\nby Matthias Nagorni\n"
     "KAMix is licensed under the GPL2.\n";
 #else
-QApplication* app = 0;
+//QApplication* app = 0;
 const char *aboutText =
     "QAMix " QAMIX_VERSION "\nby Matthias Nagorni\n"
     "QAMix is licensed under the GPL2.\n";
@@ -111,7 +111,9 @@ int main(int argc, char *argv[])
 #endif
 
 #ifndef WITHKDE
-  while((getopt_return = getopt_long(argc, argv, "hvpc:g:m:d:", options, &option_index)) >= 0) {
+  auto app = new QApplication(argc, argv);
+
+    while((getopt_return = getopt_long(argc, argv, "hvpc:g:m:d:", options, &option_index)) >= 0) {
     switch(getopt_return) {
     case 'd':
         ctl_name = QString(optarg);
@@ -188,10 +190,7 @@ int main(int argc, char *argv[])
 
 #else
 
-    app = new QApplication(argc, argv);
-
     myconfig = new MyConfig (new QSettings);
-
 
     // i18n stuff
 
