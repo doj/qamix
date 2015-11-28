@@ -1,3 +1,2 @@
-- MIDI often lags
 - send MIDI controller values upon start
 - it's probably not worth fixing the KDE build

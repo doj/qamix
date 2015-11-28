@@ -21,6 +21,9 @@ MidiSlider::~MidiSlider(){
 
 void MidiSlider::setMidiValue(int value) {
 
+    // always enable the slider
+    controllerOK = true;
+
   if (!controllerOK) {
     if (value > 10000) {
       controllerOK = abs(value - 10000 - getMidiValue()) < 4;
