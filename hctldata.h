@@ -3,21 +3,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qptrlist.h>
+#include <QtCore/qobject.h>
+#include <QtCore/qstring.h>
 #include <alsa/asoundlib.h>
 #include "hctl_element.h"
 #include "midicontroller.h"
 #include "midicontrollerlist.h"
+#include <Qt3Support/Q3ValueList>
+#include <Qt3Support/Q3PtrList>
 
-typedef QValueList<int> IntList;
+typedef Q3ValueList<int> IntList;
 
 class HctlData : public QObject
 {
   public:
-    QPtrList<HctlElement> hctlElementList;
-    QPtrList<HctlElement> guiHctlElementList;
+    Q3PtrList<HctlElement> hctlElementList;
+    Q3PtrList<HctlElement> guiHctlElementList;
     MidiControllerList midiControllerList;
     snd_hctl_t *hctl_handle;
     snd_ctl_t *ctl_handle;

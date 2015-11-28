@@ -1,3 +1,11 @@
+#include "gui.h"
+#include "hctldata.h"
+#include "hctl_element.h"
+#include "parser.h"
+#include "mixer.h"
+#include "midicontroller.h"
+
+#if 0
 #include <stdio.h>
 #include <stdlib.h>
 #include <qstring.h>
@@ -12,14 +20,9 @@
 #include <qfile.h>
 #include <qxml.h>
 #include <alsa/asoundlib.h>
-#include "gui.h"
-#include "hctldata.h"
-#include "hctl_element.h"
-#include "parser.h"
-#include "mixer.h"
-#include "midicontroller.h"
+#endif
 
-Mixer::Mixer(QString ctl_name, QString xml_name, int mode, QWidget *parent, const char *name) : QVBox(parent, name) {
+Mixer::Mixer(QString ctl_name, QString xml_name, int mode, QWidget *parent, QString name) : Q3VBox(parent, name) {
 
   QString driver_name, xmldir, short_name, long_name, mixer_name;
   snd_ctl_card_info_t *card_info;
@@ -121,8 +124,7 @@ void Mixer::close_mixer() {
 
 void Mixer::initControls() {
 
-  int l1, l2, value_count, item_count; 
-  long elem_min, elem_max, elem_step, val;
+    int l1;
   QString qs1, qs2, qs3;
   snd_hctl_elem_t *hctl_elem;
   HctlElement *hctlElement;
@@ -273,24 +275,23 @@ int Mixer::initHctlNotifier() {
 
 void Mixer::midiAction(int fd) {
 
-  snd_seq_event_t *ev;
-  int type, ch, mch, param, val, l1;
-  MidiController *midiController;
 
   do {
+  snd_seq_event_t *ev;
     snd_seq_event_input(hctlData->seq_handle, &ev);
     if ((ev->type == SND_SEQ_EVENT_CONTROLLER) 
       ||(ev->type == SND_SEQ_EVENT_PITCHBEND)
       ||(ev->type == SND_SEQ_EVENT_CONTROL14)
       ||(ev->type == SND_SEQ_EVENT_NOTEON)
       ||(ev->type == SND_SEQ_EVENT_NOTEOFF)) {
-      type = ev->type;
-      ch = ev->data.control.channel;
-      param = (ev->type==SND_SEQ_EVENT_PITCHBEND) ? 0 : ev->data.control.param;
-      val = ev->data.control.value;
+	//const int type = ev->type;
+	const int ch = ev->data.control.channel;
+	//const int param = (ev->type==SND_SEQ_EVENT_PITCHBEND) ? 0 : ev->data.control.param;
+	const int val = ev->data.control.value;
 
-      for(l1 = 0; l1 < hctlData->midiControllerList.count(); l1++) {
-        midiController = hctlData->midiControllerList.at(l1);
+      for(unsigned l1 = 0; l1 < hctlData->midiControllerList.count(); l1++) {
+        auto midiController = hctlData->midiControllerList.at(l1);
+	int mch;
         if (hctlData->channel >= 0) {
           mch = hctlData->channel;
         } else {
@@ -301,11 +302,11 @@ void Mixer::midiAction(int fd) {
             midiController->sendMidiValue((val + 8192) / 128);
           }
           if ((ev->type == SND_SEQ_EVENT_CONTROL14)
-           && (midiController->param == ev->data.control.param)) {
+	      && (midiController->param == static_cast<int>(ev->data.control.param))) {
             midiController->sendMidiValue(val / 128);
           }
           if ((ev->type == SND_SEQ_EVENT_CONTROLLER)
-            && (midiController->param == ev->data.control.param)) {
+	      && (midiController->param == static_cast<int>(ev->data.control.param))) {
             midiController->sendMidiValue(val);
           }
           if ((ev->type == SND_SEQ_EVENT_NOTEON)

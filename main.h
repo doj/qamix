@@ -1,11 +1,11 @@
+#pragma once
 
-
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 
 #ifdef WITHKDE
 #include <kamixunique.h>
 #else
-#include <qapplication.h>
+#include <QtGui/QApplication>
 #endif
 
 #include "myconfig.h"
@@ -20,4 +20,3 @@ extern QApplication* app;
 extern MyConfig* myconfig;
 
 extern QStringList card_list;
-

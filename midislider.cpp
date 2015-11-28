@@ -1,16 +1,11 @@
-#include <qslider.h>
-#include <qhbox.h>
-#include <qlabel.h>
-#include <stdio.h>
-#include <math.h>
 #include "midislider.h"
 #include "midiguicomponent.h"
 
 MidiSlider::MidiSlider(int minValue, int maxValue, int pageStep, int value,
-                       QSlider::Orientation orientation, QWidget * parent, const char * name)
+                       Qt::Orientation orientation, QWidget * parent, QString name)
            : MidiGUIcomponent(parent, name) {
 
-  QHBox *sliderContainer = new QHBox(this);
+  auto sliderContainer = new Q3HBox(this);
   new QWidget (sliderContainer);
   slider = new QSlider(minValue, maxValue, pageStep, 
                        value, orientation, sliderContainer);  

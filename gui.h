@@ -1,28 +1,23 @@
-#ifndef GUI_H
-#define GUI_H
-
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <qstring.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qhbox.h>
-#include <qvbox.h>
-#include <qmessagebox.h>
-#include <qptrlist.h>
-#include <qptrstack.h>
-#include <qvaluelist.h>
-#include <qvaluestack.h>
-#include <qtabwidget.h>
+#include <QtCore/qstring.h>
+#include <QtGui/qlabel.h>
+#include <QtGui/qslider.h>
+#include <Qt3Support/Q3VBox>
+#include <QtGui/qmessagebox.h>
+#include <QtGui/qtabwidget.h>
 #include <alsa/asoundlib.h>
 #include "hctldata.h"
 #include "hctl_element.h"
 #include "hctl_slider.h"
 #include "midicontroller.h"
 #include "midicontrollerlist.h"
+#include <Qt3Support/Q3ValueStack>
+#include <Qt3Support/Q3PtrStack>
 
-class Gui : public QHBox
+class Gui : public Q3HBox
 {
   Q_OBJECT
 
@@ -31,10 +26,10 @@ class Gui : public QHBox
     HctlData *hctlData;
     QTabWidget *tabWidget;
     QWidget *currentContainer;
-    QPtrStack<QWidget> containerList; 
+    Q3PtrStack<QWidget> containerList; 
     sliderValueStyleEnum sliderValueStyle;    
     bool isHBox;
-    QValueStack<bool> isHBoxList;
+    Q3ValueStack<bool> isHBoxList;
 
   public:
     Gui(HctlData *p_hctlData, QWidget* parent=0, const char *name=0);
@@ -53,5 +48,3 @@ class Gui : public QHBox
                         MidiControllerList *midiControllerList, IntList *midiIndexList, int sign, int stretch=0, bool single = false);
 
 };
-  
-#endif

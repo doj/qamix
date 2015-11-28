@@ -1,6 +1,12 @@
-#ifndef MIXER_H
-#define MIXER_H
+#pragma once
+#include "hctldata.h"
+#include "hctl_element.h"
+#include "gui.h"
 
+#include <Qt3Support/Q3VBox>
+#include <QtCore/QSocketNotifier>
+
+#if 0
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -9,15 +15,12 @@
 #include <qslider.h>
 #include <qsocketnotifier.h>
 #include <qhbox.h>
-#include <qvbox.h>
 #include <qptrlist.h>
 #include <qmessagebox.h>
 #include <qlist.h>
 #include <qxml.h>
 #include <alsa/asoundlib.h>
-#include "hctldata.h"
-#include "hctl_element.h"
-#include "gui.h"
+#endif
 
 #ifdef WITHKDE
 #define QAMIX_SHARE_DIR "/usr/share/kamix"
@@ -25,7 +28,7 @@
 #define QAMIX_SHARE_DIR "/usr/share/qamix"
 #endif
 
-class Mixer : public QVBox
+class Mixer : public Q3VBox
 {
   Q_OBJECT
 
@@ -41,7 +44,7 @@ class Mixer : public QVBox
     int initHctlNotifier();  
 
   public:
-    Mixer(QString ctl_name, QString xml_name, int mode, QWidget* parent=0, const char *name=0);
+    Mixer(QString ctl_name, QString xml_name, int mode, QWidget* parent, QString name);
     ~Mixer();
 
   public slots:
@@ -53,5 +56,3 @@ class Mixer : public QVBox
     void midiAction(int fd);
     void hctlAction(int fd);
 };
-  
-#endif

@@ -1,10 +1,9 @@
-#include <qvbox.h>
 #include <alsa/asoundlib.h>
 #include "hctl_element.h"
 
-HctlElement::HctlElement(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const char * name)
-                                        : QVBox(parent, name) {
-
+HctlElement::HctlElement(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, QString name)
+                                        : Q3VBox(parent)
+{
   hctl_elem = p_hctl_elem;
   snd_ctl_elem_info_malloc(&elem_info);
   snd_ctl_elem_value_malloc(&elem_value);

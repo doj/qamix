@@ -4,15 +4,11 @@
  *  Author: Arvin Schnell <arvin@suse.de>
  */
 
-
-#include <qstring.h>
+#include "utils.h"
 
 #ifdef WITHKDE
 #include <kstandarddirs.h>
 #endif
-
-#include "utils.h"
-
 
 QPixmap*
 load_qpixmap (const char* name)

@@ -1,17 +1,11 @@
-#ifndef MIDICONTROLLERLIST_H
-#define MIDICONTROLLERLIST_H
-
-#include <qptrlist.h>
-#include <qcollection.h>
-
+#pragma once
 #include "midicontroller.h"
+#include <Qt3Support/Q3PtrList>
 
-class MidiControllerList : public QPtrList<MidiController> {
+class MidiControllerList : public Q3PtrList<MidiController> {
 
   public:
     MidiControllerList();
     ~MidiControllerList();
-    int compareItems(QCollection::Item item1, QCollection::Item item2 );
+    int compareItems(MidiController * item1, MidiController * item2);
 };
-                     
-#endif

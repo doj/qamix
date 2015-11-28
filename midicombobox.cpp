@@ -1,21 +1,15 @@
-#include <qcombobox.h>
-#include <qhbox.h>
-#include <qlabel.h>
-#include <qstrlist.h>
-#include <stdio.h>
-#include <math.h>
 #include "midicombobox.h"
 #include "midiguicomponent.h"
 
-MidiComboBox::MidiComboBox(QStrList *itemNames, int value, QWidget * parent, const char * name)
+MidiComboBox::MidiComboBox(const QStringList& itemNames, int value, QWidget * parent, QString name)
            : MidiGUIcomponent(parent, name) {
 
   setMargin(5);
-  QHBox *comboContainer = new QHBox(this);
+  auto comboContainer = new Q3HBox(this);
   new QWidget (comboContainer);
   combobox = new QComboBox(comboContainer);
   new QWidget (comboContainer);
-  combobox->insertStrList(itemNames);
+  combobox->addItems(itemNames);
   combobox->setCurrentItem(value);
   QObject::connect(combobox, SIGNAL(highlighted(int)), this, SLOT(updateValue(int)));
 }

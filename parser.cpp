@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <qstring.h>
-#include <qxml.h>
-#include <qframe.h>
+#include <QtGui/QFrame>
 #include <alsa/asoundlib.h>
 #include "parser.h"
 #include "gui.h"
@@ -192,7 +188,7 @@ bool Parser::endElement(const QString& namespaceURI, const QString& localName, c
   if (!gate) {
     return(true);
   }
-  qs = contentLine.stripWhiteSpace();
+  qs = contentLine.trimmed();//stripWhiteSpace();
   contentLine = "";
   if (qName.compare("tab") == 0) {
     gui->endTab();
@@ -211,7 +207,7 @@ bool Parser::endElement(const QString& namespaceURI, const QString& localName, c
       mixname = alsaname;
     }
     snd_ctl_elem_id_alloca(&snd_ctl_elem_id);
-    snd_ctl_elem_id_set_name(snd_ctl_elem_id, alsaname.latin1());
+    snd_ctl_elem_id_set_name(snd_ctl_elem_id, alsaname.toLatin1().data());
     snd_ctl_elem_id_set_index(snd_ctl_elem_id, ctl_index);
     snd_ctl_elem_id_set_interface(snd_ctl_elem_id, SND_CTL_ELEM_IFACE_MIXER);
     if ((snd_hctl_elem = snd_hctl_find_elem(hctlData->hctl_handle, snd_ctl_elem_id)) > 0) {

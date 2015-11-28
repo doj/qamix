@@ -1,9 +1,6 @@
-#ifndef MIDICHECKBOX_H
-#define MIDICHECKBOX_H
-
-#include <qcheckbox.h>
-#include <qhbox.h>
-#include <qlabel.h>
+#pragma once
+#include <QtGui/qcheckbox.h>
+#include <QtGui/qlabel.h>
 #include "hctldata.h"
 #include "midicontroller.h"
 #include "midiguicomponent.h"
@@ -16,7 +13,7 @@ public:
   QCheckBox *checkbox;
   
 public:
-  MidiCheckBox(bool on, QWidget * parent, const char * name=0);
+  MidiCheckBox(bool on, QWidget * parent, QString name);
   ~MidiCheckBox();
   virtual void setMidiValue(int value);
   virtual int getMidiValue();
@@ -29,5 +26,3 @@ public slots:
   void updateCheckBox(bool on);
     
 };
-
-#endif

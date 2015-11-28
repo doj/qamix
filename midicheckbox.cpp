@@ -1,15 +1,10 @@
-#include <qcheckbox.h>
-#include <qhbox.h>
-#include <qlabel.h>
-#include <stdio.h>
-#include <math.h>
 #include "midicheckbox.h"
 #include "midiguicomponent.h"
 
-MidiCheckBox::MidiCheckBox(bool on, QWidget * parent, const char * name)
+MidiCheckBox::MidiCheckBox(bool on, QWidget * parent, QString name)
            : MidiGUIcomponent(parent, name) {
 
-  QHBox *checkContainer = new QHBox(this);
+  auto checkContainer = new Q3HBox(this);
   new QWidget (checkContainer);
   checkbox = new QCheckBox(checkContainer);
   new QWidget (checkContainer);

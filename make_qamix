@@ -1,100 +1,44 @@
-QT_BASE_DIR=/usr/lib/qt3
-QT_LIB_DIR=$(QT_BASE_DIR)/lib
+# -*- mode: Makefile; -*-
+
+QT_BASE_DIR?=/usr
+QT_LIB_DIR=$(QT_BASE_DIR)/lib64/qt4
 QT_BIN_DIR=$(QT_BASE_DIR)/bin
-QT_INCLUDE_DIR=$(QT_BASE_DIR)/include
+QT_INCLUDE_DIR=$(QT_BASE_DIR)/include/qt4
 X11_LIB_DIR=/usr/X11R6/lib
 X11_INCLUDE_DIR=/usr/X11R6/include
 
-qamix: gui.o gui.moc.o parser.o \
-	hctl_element.o hctl_element.moc.o hctl_slider.o hctl_slider.moc.o \
-	hctl_checkbox.o hctl_checkbox.moc.o \
-	hctl_combobox.o hctl_combobox.moc.o \
-	hctldata.o \
-	mixlaunch.o mixlaunch.moc.o \
-	mixer.o mixer.moc.o main.o \
-	midicontroller.o midicontroller.moc.o \
-	midicontrollerlist.o \
-	midiguicomponent.o midiguicomponent.moc.o \
-	midislider.o midislider.moc.o \
-	midicheckbox.o midicheckbox.moc.o \
-	midicombobox.o midicombobox.moc.o \
-	utils.o myconfig.o
-	gcc -g -o qamix \
-	gui.o gui.moc.o parser.o \
-	hctl_element.o hctl_element.moc.o hctl_slider.o hctl_slider.moc.o \
-	hctl_checkbox.o hctl_checkbox.moc.o \
-	hctl_combobox.o hctl_combobox.moc.o \
-	hctldata.o \
-	mixlaunch.o mixlaunch.moc.o \
-	mixer.o mixer.moc.o main.o \
-	midicontroller.o midicontroller.moc.o \
-	midicontrollerlist.o \
-	midiguicomponent.o midiguicomponent.moc.o \
-	midislider.o midislider.moc.o \
-	midicheckbox.o midicheckbox.moc.o \
-	midicombobox.o midicombobox.moc.o \
-	utils.o myconfig.o \
-	-L$(QT_LIB_DIR) -L$(X11_LIB_DIR) -L/usr/local/lib \
-	-lqt-mt -lasound -lm
+MOC=$(QT_BIN_DIR)/moc
 
-CXXFLAGS=-I$(QT_INCLUDE_DIR) -I$(X11_INCLUDE_DIR) -I. -O2 -g -Wall
+CXXFLAGS+=-I$(QT_INCLUDE_DIR) -I$(X11_INCLUDE_DIR) -I. -O2 -g -Wall -std=c++11 -DQT3_SUPPORT=1 -MMD
+LDFLAGS+=-L$(QT_LIB_DIR) -L$(X11_LIB_DIR) -L/usr/local/lib
+LDLIBS+=-lQtCore -lQtGui -lQt3Support -lQtXml -lasound -lm
 
-gui.o: gui.cpp gui.h hctldata.h hctl_element.h hctl_slider.h hctl_checkbox.h hctl_combobox.h \
-	midicontrollerlist.h midicontroller.h
-gui.moc.o: gui.moc.cpp gui.h hctldata.h hctl_element.h hctl_slider.h hctl_checkbox.h hctl_combobox.h \
-	midicontrollerlist.h midicontroller.h
-gui.moc.cpp: gui.h gui.cpp
-	$(QT_BIN_DIR)/moc gui.h -o gui.moc.cpp
-mixlaunch.o: mixlaunch.cpp mixlaunch.h mixer.h
-mixlaunch.moc.o: mixlaunch.moc.cpp mixlaunch.h mixer.h
-mixlaunch.moc.cpp: mixlaunch.h mixlaunch.cpp
-	$(QT_BIN_DIR)/moc mixlaunch.h -o mixlaunch.moc.cpp
-mixer.o: mixer.cpp mixer.h hctldata.h hctl_element.h parser.h \
-	midicontrollerlist.h midicontroller.h
-mixer.moc.o: mixer.moc.cpp mixer.h hctldata.h hctl_element.h parser.h \
-	midicontrollerlist.h midicontroller.h
-mixer.moc.cpp: mixer.h mixer.cpp
-	$(QT_BIN_DIR)/moc mixer.h -o mixer.moc.cpp
-main.o: main.cpp mixlaunch.h
-utils.o: utils.cpp utils.h
-myconfig.o: myconfig.cpp myconfig.h
-parser.o: parser.cpp parser.h gui.h hctldata.h hctl_slider.h \
-	midicontrollerlist.h midicontroller.h
-hctldata.o: hctldata.cpp hctldata.h midicontrollerlist.h midicontroller.h
-hctl_element.o: hctl_element.cpp hctl_element.h midicontroller.h
-hctl_element.moc.o: hctl_element.moc.cpp hctl_element.h hctl_element.h midicontroller.h
-hctl_element.moc.cpp: hctl_element.h hctl_element.cpp
-	$(QT_BIN_DIR)/moc hctl_element.h -o hctl_element.moc.cpp
-hctl_slider.o: hctl_slider.cpp hctl_slider.h hctl_element.h midislider.h
-hctl_slider.moc.o: hctl_slider.moc.cpp hctl_slider.h hctl_element.h midislider.h
-hctl_slider.moc.cpp: hctl_slider.h hctl_slider.cpp
-	$(QT_BIN_DIR)/moc hctl_slider.h -o hctl_slider.moc.cpp
-hctl_checkbox.o: hctl_checkbox.cpp hctl_checkbox.h hctl_element.h midicheckbox.h
-hctl_checkbox.moc.o: hctl_checkbox.moc.cpp hctl_checkbox.h hctl_element.h midicheckbox.h
-hctl_checkbox.moc.cpp: hctl_checkbox.h hctl_checkbox.cpp
-	$(QT_BIN_DIR)/moc hctl_checkbox.h -o hctl_checkbox.moc.cpp
-hctl_combobox.o: hctl_combobox.cpp hctl_combobox.h hctl_element.h midicombobox.h
-hctl_combobox.moc.o: hctl_combobox.moc.cpp hctl_combobox.h hctl_element.h midicombobox.h
-hctl_combobox.moc.cpp: hctl_combobox.h hctl_combobox.cpp
-	$(QT_BIN_DIR)/moc hctl_combobox.h -o hctl_combobox.moc.cpp
-midicontrollerlist.o: midicontrollerlist.cpp midicontrollerlist.h midicontroller.h
-midicontroller.o: midicontroller.cpp midicontroller.h
-midicontroller.moc.o: midicontroller.moc.cpp midicontroller.h midicontroller.h
-midicontroller.moc.cpp: midicontroller.h midicontroller.cpp
-	$(QT_BIN_DIR)/moc midicontroller.h -o midicontroller.moc.cpp
-midiguicomponent.o: midiguicomponent.cpp midiguicomponent.h
-midiguicomponent.moc.o: midiguicomponent.moc.cpp midiguicomponent.h midiguicomponent.h
-midiguicomponent.moc.cpp: midiguicomponent.h midiguicomponent.cpp
-	$(QT_BIN_DIR)/moc midiguicomponent.h -o midiguicomponent.moc.cpp
-midislider.o: midislider.cpp midislider.h
-midislider.moc.o: midislider.moc.cpp midislider.h midiguicomponent.h
-midislider.moc.cpp: midislider.h midislider.cpp
-	$(QT_BIN_DIR)/moc midislider.h -o midislider.moc.cpp
-midicheckbox.o: midicheckbox.cpp midicheckbox.h
-midicheckbox.moc.o: midicheckbox.moc.cpp midicheckbox.h midiguicomponent.h
-midicheckbox.moc.cpp: midicheckbox.h midicheckbox.cpp
-	$(QT_BIN_DIR)/moc midicheckbox.h -o midicheckbox.moc.cpp
-midicombobox.o: midicombobox.cpp midicombobox.h
-midicombobox.moc.o: midicombobox.moc.cpp midicombobox.h midiguicomponent.h
-midicombobox.moc.cpp: midicombobox.h midicombobox.cpp
-	$(QT_BIN_DIR)/moc midicombobox.h -o midicombobox.moc.cpp
+EXE=qamix
+CPP=	gui.cpp gui.moc.cpp parser.cpp \
+	hctl_element.cpp hctl_element.moc.cpp hctl_slider.cpp hctl_slider.moc.cpp \
+	hctl_checkbox.cpp hctl_checkbox.moc.cpp \
+	hctl_combobox.cpp hctl_combobox.moc.cpp \
+	hctldata.cpp \
+	mixlaunch.cpp mixlaunch.moc.cpp \
+	mixer.cpp mixer.moc.cpp main.cpp \
+	midicontroller.cpp midicontroller.moc.cpp \
+	midicontrollerlist.cpp \
+	midiguicomponent.cpp midiguicomponent.moc.cpp \
+	midislider.cpp midislider.moc.cpp \
+	midicheckbox.cpp midicheckbox.moc.cpp \
+	midicombobox.cpp midicombobox.moc.cpp \
+	utils.cpp myconfig.cpp
+
+all:	$(EXE)
+
+$(EXE):	$(CPP:.cpp=.o)
+	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+
+clean:
+	$(RM) *.o *.moc.cpp *.d *~ $(EXE)
+
+%.moc.cpp:	%.h
+	$(MOC) -o $@ $<
+
+-include $(CPP:.cpp=.d)
+# TODO: generate dependencies

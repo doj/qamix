@@ -1,19 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <qstring.h>
-#include <qwidget.h>
-#include <qfiledialog.h>
-#include <qpopupmenu.h>
-#include <qmenubar.h>
-#include <qstringlist.h>
 #include "utils.h"
 #include "mixlaunch.h"
 #include "mixer.h"
 
-MixLaunch::MixLaunch(QString p_ctlname, QString p_xml_name, int p_mode, QWidget *parent, const char *name) : QVBox(parent, name) {
+#include <QtGui/QMenuBar>
+#include <QtGui/QFileDialog>
 
-  mainWindow = (QMainWindow *)parent;
-  int l1;
+MixLaunch::MixLaunch(QString p_ctlname, QString p_xml_name, int p_mode, QWidget *parent, QString name) : Q3VBox(parent, name) {
+
+  mainWindow = (Q3MainWindow *)parent;
 
   ctl_name = p_ctlname;
   xml_name = p_xml_name;
@@ -28,7 +22,7 @@ MixLaunch::MixLaunch(QString p_ctlname, QString p_xml_name, int p_mode, QWidget 
   if ((seqHandle = open_seq()) != NULL) {
     initSeqNotifier();
   }
-  mixer = new Mixer(ctl_name, xml_name, mode, this);
+  mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
     mixer->hctlData->seq_handle = seqHandle;  
     QObject::connect(seqNotifier, SIGNAL(activated(int)),
@@ -47,15 +41,16 @@ MixLaunch::~MixLaunch() {
 void MixLaunch::openMixer() {
  
 #ifdef WITHKDE
-  if (!(xml_name = QString(QFileDialog::getOpenFileName("/usr/share/kamix", "KAMix GUI description (*.xml)")))) {
+    xml_name = QString(QFileDialog::getOpenFileName("/usr/share/kamix", "KAMix GUI description (*.xml)"));
 #else
-  if (!(xml_name = QString(QFileDialog::getOpenFileName("/usr/share/qamix", "QAMix GUI description (*.xml)")))) {
+    xml_name = QString(QFileDialog::getOpenFileName("/usr/share/qamix", "QAMix GUI description (*.xml)"));
 #endif
-    return;
+    if (xml_name.isEmpty()) {
+	return;
   } else {
     closeMixer();
 //    printf("Opening new mixer %s\n", xml_name.latin1());
-    mixer = new Mixer(ctl_name, xml_name, mode, this);
+    mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
     if (seqHandle) {
       mixer->hctlData->seq_handle = seqHandle;
       QObject::connect(seqNotifier, SIGNAL(activated(int)),
@@ -85,12 +80,12 @@ void MixLaunch::displayAbout() {
 
 void MixLaunch::newDevice(int id) {
 
-  int l1, index;
+  int index;
   QString qs;
 
-  QPopupMenu *deviceMenu = (QPopupMenu *)sender();
-  
-  for (l1 = 0; l1 < deviceMenu->count(); l1++) {
+  auto deviceMenu = reinterpret_cast<Q3PopupMenu*>(sender());
+
+  for (unsigned l1 = 0; l1 < deviceMenu->count(); l1++) {
     deviceMenu->setItemChecked(l1, false);
   }
   deviceMenu->setItemChecked(id, true);
@@ -101,7 +96,7 @@ void MixLaunch::newDevice(int id) {
   xml_name = "NO_NAME_SPECIFIED"; // Automatic search for GUI description
 //  printf("ctl_name: %s\n", ctl_name.latin1());
   closeMixer();
-  mixer = new Mixer(ctl_name, xml_name, mode, this);
+  mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
     mixer->hctlData->seq_handle = seqHandle;
     QObject::connect(seqNotifier, SIGNAL(activated(int)),
@@ -113,16 +108,17 @@ void MixLaunch::newDevice(int id) {
 
 void MixLaunch::newDeviceParam(int id) {
 
-  int l1, index;
+  int index;
   QString qs;
 
-  QPopupMenu *deviceMenu = (QPopupMenu *)sender();
-  
+#if 0
+  Q3PopupMenu *deviceMenu = (Q3PopupMenu *)sender();
 //  for (l1 = 0; l1 < deviceMenu->count(); l1++) {
 //    deviceMenu->setItemChecked(l1, false);
 //  }
 //  deviceMenu->setItemChecked(id, true);
-  for (l1 = 0; l1 < devicePopup->count(); l1++) {
+#endif
+  for (unsigned l1 = 0; l1 < devicePopup->count(); l1++) {
     devicePopup->setItemChecked(l1, false);
   }
   devicePopup->setItemChecked(id, true);
@@ -134,7 +130,7 @@ void MixLaunch::newDeviceParam(int id) {
   xml_name = "NO_NAME_SPECIFIED"; // Automatic search for GUI description
 //  printf("ctl_name: %s\n", ctl_name.latin1());
   closeMixer();
-  mixer = new Mixer(ctl_name, xml_name, mode, this);
+  mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
     mixer->hctlData->seq_handle = seqHandle;
     QObject::connect(seqNotifier, SIGNAL(activated(int)),
@@ -169,7 +165,7 @@ void MixLaunch::newMode(int id) {
 
   int l1;
 
-  QPopupMenu *viewMenu = (QPopupMenu *)sender();
+  Q3PopupMenu *viewMenu = (Q3PopupMenu *)sender();
   mode = id;
 #ifndef WITHKDE
   if (mode == 1) {
@@ -181,13 +177,13 @@ void MixLaunch::newMode(int id) {
       mainWindow->menuBar()->setItemVisible(hide_ids[l1], true);
     }
   }
-  for (l1 = 0; l1 < viewMenu->count(); l1++) {
+  for (unsigned l1 = 0; l1 < viewMenu->count(); l1++) {
     viewMenu->setItemChecked(l1, false);
   }
   viewMenu->setItemChecked(mode, true);
 #endif
   closeMixer();
-  mixer = new Mixer(ctl_name, xml_name, mode, this);
+  mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
     mixer->hctlData->seq_handle = seqHandle;
     QObject::connect(seqNotifier, SIGNAL(activated(int)),
@@ -201,7 +197,7 @@ void MixLaunch::newModeParam(int id) {
   int l1;
 
 //  fprintf(stderr, "id = %d\n", id);
-  QPopupMenu *viewMenu = (QPopupMenu *)sender();
+  //Q3PopupMenu *viewMenu = (Q3PopupMenu *)sender();
 //  mode = viewMenu->itemParameter(id);
   mode = id;
 //  fprintf(stderr, "mode = %d\n", mode);
@@ -218,14 +214,14 @@ void MixLaunch::newModeParam(int id) {
 //  for (l1 = 0; l1 < viewMenu->count(); l1++) {
 //    viewMenu->setItemChecked(l1, false);
 //  }
-  for (l1 = 0; l1 < viewPopup->count(); l1++) {
+  for (unsigned l1 = 0; l1 < viewPopup->count(); l1++) {
     viewPopup->setItemChecked(l1, false);
   }
 //  viewMenu->setItemChecked(id, true);
   viewPopup->setItemChecked(id, true);
 #endif
   closeMixer();
-  mixer = new Mixer(ctl_name, xml_name, mode, this);
+  mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
     mixer->hctlData->seq_handle = seqHandle;
     QObject::connect(seqNotifier, SIGNAL(activated(int)),
@@ -237,7 +233,8 @@ void MixLaunch::newModeParam(int id) {
 snd_seq_t *MixLaunch::open_seq() {
 
   snd_seq_t *seq_handle;
-  int portid, clientid; 
+  int portid;
+  int clientid;
 //  QString qs;
 
   if (snd_seq_open(&seq_handle, "hw", SND_SEQ_OPEN_DUPLEX, 0) < 0) {
@@ -251,6 +248,7 @@ snd_seq_t *MixLaunch::open_seq() {
   snd_seq_set_client_name(seq_handle, "QAMix");
 #endif
   clientid = snd_seq_client_id(seq_handle);
+  (void)clientid;
   if ((portid = snd_seq_create_simple_port(seq_handle, "qamix",
             SND_SEQ_PORT_CAP_WRITE|SND_SEQ_PORT_CAP_SUBS_WRITE,
             SND_SEQ_PORT_TYPE_APPLICATION)) < 0) {

@@ -1,10 +1,8 @@
 #ifndef HCTL_SLIDER_H
 #define HCTL_SLIDER_H
 
-#include <qptrlist.h>
-#include <qslider.h>
-#include <qlabel.h>
-#include <qvbox.h>
+#include <QtGui/qslider.h>
+#include <QtGui/qlabel.h>
 #include <alsa/asoundlib.h>
 #include "hctl_element.h"
 #include "midislider.h"
@@ -23,12 +21,12 @@ class HctlSlider : public HctlElement  {
     bool single;
 
   public:
-    QPtrList<MidiSlider> sliderList;
+    Q3PtrList<MidiSlider> sliderList;
     QLabel *label;
-    QPtrList<QLabel> numberList;
+    Q3PtrList<QLabel> numberList;
         
   public:
-    HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const char * name = 0, 
+    HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, QString name,
                sliderValueStyleEnum p_sliderValueStyle = sliderValueStyle_NoNumbers, bool p_single = false);
     ~HctlSlider();
     virtual void midiConnect(int index, MidiController *midiController);

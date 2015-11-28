@@ -4,15 +4,11 @@
  *  Author: Arvin Schnell <arvin@suse.de>
  */
 
-
-#ifndef UTILS_H
-#define UTILS_H
-
-
+#pragma once
 #include <libintl.h>
 
-#include <qstring.h>
-#include <qpixmap.h>
+#include <QtCore/QString>
+#include <QtGui/QPixmap>
 
 #ifdef WITHKDE
 #include <klocale.h>
@@ -35,8 +31,5 @@ inline QString i18n (const char* msgid1, const char* msgid2,
 {
     return QString::fromUtf8 (ngettext (msgid1, msgid2, n));
 }
-
-#endif
-
 
 #endif

@@ -1,3 +1,4 @@
+#pragma once
 #include <qmainwindow.h>
 #include <kpopupmenu.h>
 #include <kuniqueapplication.h>
@@ -42,4 +43,3 @@ public slots:
     void showWindow(int);
     void timerProc();
 };
-

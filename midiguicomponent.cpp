@@ -1,11 +1,9 @@
-#include <qvbox.h>
-#include <stdio.h>
 #include "midicontroller.h"
 #include "midicontrollerlist.h"
 #include "midiguicomponent.h"
 
-MidiGUIcomponent::MidiGUIcomponent(QWidget * parent, const char * name)
-           : QVBox(parent, name) {
+MidiGUIcomponent::MidiGUIcomponent(QWidget * parent, QString name)
+           : Q3VBox(parent, name) {
 
   controllerOK = false;
 }

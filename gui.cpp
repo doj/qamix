@@ -1,18 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <qstring.h>
-#include <qlabel.h>
-#include <qslider.h> 
-#include <qhbox.h>
-#include <qvbox.h>
-#include <qtabwidget.h>
-#include <qpushbutton.h>
-#include <qfile.h>
-#include <qptrstack.h>
-#include <qframe.h>
-#include <qgroupbox.h>
-#include <qmessagebox.h> 
-#include <alsa/asoundlib.h>
+#include <QtGui/qpushbutton.h>
+#include <QtCore/qfile.h>
+//#include <QtCore/qptrstack.h>
+#include <QtGui/qframe.h>
+#include <QtGui/qgroupbox.h>
 #include "gui.h"
 #include "hctldata.h"
 #include "hctl_element.h"
@@ -21,8 +11,9 @@
 #include "hctl_combobox.h"
 #include "midicontroller.h"
 #include "midicontrollerlist.h"
+#include <Qt3Support/Q3GroupBox>
 
-Gui::Gui(HctlData *p_hctlData, QWidget *parent, const char *name) : QHBox(parent, name) {
+Gui::Gui(HctlData *p_hctlData, QWidget *parent, const char *name) : Q3HBox(parent, name) {
 
   QString qs1;
 
@@ -61,9 +52,9 @@ void Gui::addHctlElement(snd_hctl_elem_t *hctl_elem, QString label,
         HctlCheckBox *hctlCheckBox = new HctlCheckBox(hctl_elem, currentContainer, label, sign);
         if (stretch) {
           if (isHBox) {
-            ((QHBox *)currentContainer)->setStretchFactor(hctlCheckBox, stretch);
+            ((Q3HBox *)currentContainer)->setStretchFactor(hctlCheckBox, stretch);
           } else {
-            ((QVBox *)currentContainer)->setStretchFactor(hctlCheckBox, stretch);
+            ((Q3VBox *)currentContainer)->setStretchFactor(hctlCheckBox, stretch);
           }
         }
         hctlElement = hctlCheckBox;
@@ -74,9 +65,9 @@ void Gui::addHctlElement(snd_hctl_elem_t *hctl_elem, QString label,
         HctlSlider *hctlSlider = new HctlSlider(hctl_elem, currentContainer, label, sliderValueStyle, single);
         if (stretch) {
           if (isHBox) {
-            ((QHBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
+            ((Q3HBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
           } else {
-            ((QVBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
+            ((Q3VBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
           }
         }
         hctlElement = hctlSlider;
@@ -87,9 +78,9 @@ void Gui::addHctlElement(snd_hctl_elem_t *hctl_elem, QString label,
         HctlComboBox *hctlComboBox = new HctlComboBox(hctl_elem, currentContainer, label);
         if (stretch) {
           if (isHBox) {
-            ((QHBox *)currentContainer)->setStretchFactor(hctlComboBox, stretch);
+            ((Q3HBox *)currentContainer)->setStretchFactor(hctlComboBox, stretch);
           } else {
-            ((QVBox *)currentContainer)->setStretchFactor(hctlComboBox, stretch);
+            ((Q3VBox *)currentContainer)->setStretchFactor(hctlComboBox, stretch);
           }
         }
         hctlElement = hctlComboBox;
@@ -104,9 +95,9 @@ void Gui::addHctlElement(snd_hctl_elem_t *hctl_elem, QString label,
         HctlSlider *hctlSlider = new HctlSlider(hctl_elem, currentContainer, label, sliderValueStyle, single);
         if (stretch) {
           if (isHBox) {
-            ((QHBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
+            ((Q3HBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
           } else {
-            ((QVBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
+            ((Q3VBox *)currentContainer)->setStretchFactor(hctlSlider, stretch);
           }
         }
         hctlElement = hctlSlider;
@@ -130,9 +121,9 @@ void Gui::addSpace(int stretch) {
   QWidget *tmpWidget =  new QWidget(currentContainer);
   if (stretch) {
     if (isHBox) {
-      ((QHBox *)currentContainer)->setStretchFactor(tmpWidget, stretch);
+      ((Q3HBox *)currentContainer)->setStretchFactor(tmpWidget, stretch);
     } else {
-      ((QVBox *)currentContainer)->setStretchFactor(tmpWidget, stretch);
+      ((Q3VBox *)currentContainer)->setStretchFactor(tmpWidget, stretch);
     }
   }
 }
@@ -142,10 +133,10 @@ void Gui::startTab(QString tabLabel) {
   if (!tabWidget) {
     tabWidget = new QTabWidget(this);
   } 
-  QHBox *hbox = new QHBox(tabWidget);
+  Q3HBox *hbox = new Q3HBox(tabWidget);
   hbox->setMargin(5);
   hbox->setSpacing(5);
-  tabWidget->insertTab(hbox, tabLabel);
+  tabWidget->addTab(hbox, tabLabel);
   currentContainer = hbox;
   containerList.push(currentContainer);  
 }  
@@ -158,7 +149,7 @@ void Gui::endTab() {
 
 void Gui::startVBox(int style, int width, int stretch) {
 
-  QVBox *vbox = new QVBox(currentContainer);
+  Q3VBox *vbox = new Q3VBox(currentContainer);
 //  vbox->setMargin(5);
   if (style) {
     vbox->setFrameStyle(style);
@@ -166,9 +157,9 @@ void Gui::startVBox(int style, int width, int stretch) {
   }
   if (stretch) {
     if (isHBox) {
-      ((QHBox *)currentContainer)->setStretchFactor(vbox, stretch);
+      ((Q3HBox *)currentContainer)->setStretchFactor(vbox, stretch);
     } else {
-      ((QVBox *)currentContainer)->setStretchFactor(vbox, stretch);
+      ((Q3VBox *)currentContainer)->setStretchFactor(vbox, stretch);
     }
   }
   currentContainer = vbox;
@@ -187,7 +178,7 @@ void Gui::endVBox() {
 
 void Gui::startHBox(int style, int width, int stretch) {
 
-  QHBox *hbox = new QHBox(currentContainer);
+  Q3HBox *hbox = new Q3HBox(currentContainer);
 //  hbox->setMargin(5);
   if (style) {
     hbox->setFrameStyle(style);
@@ -195,9 +186,9 @@ void Gui::startHBox(int style, int width, int stretch) {
   }
   if (stretch) {
     if (isHBox) {
-      ((QHBox *)currentContainer)->setStretchFactor(hbox, stretch);
+      ((Q3HBox *)currentContainer)->setStretchFactor(hbox, stretch);
     } else {
-      ((QVBox *)currentContainer)->setStretchFactor(hbox, stretch);
+      ((Q3VBox *)currentContainer)->setStretchFactor(hbox, stretch);
     }
   }
   currentContainer = hbox;
@@ -216,13 +207,13 @@ void Gui::endHBox() {
 
 void Gui::startGroupBox(QString groupLabel, int stretch) {
 
-  QGroupBox *gbox = new QGroupBox(1, Qt::Horizontal, groupLabel, currentContainer);
-  QHBox *hbox = new QHBox(gbox);
+  auto gbox = new Q3GroupBox(1, Qt::Horizontal, groupLabel, currentContainer);
+  Q3HBox *hbox = new Q3HBox(gbox);
   if (stretch) {
     if (isHBox) {
-      ((QHBox *)currentContainer)->setStretchFactor(gbox, stretch);
+      ((Q3HBox *)currentContainer)->setStretchFactor(gbox, stretch);
     } else {
-      ((QVBox *)currentContainer)->setStretchFactor(gbox, stretch);
+      ((Q3VBox *)currentContainer)->setStretchFactor(gbox, stretch);
     }
   }
   currentContainer = hbox;

@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <qobject.h>
-#include <qstring.h>
 #include "hctldata.h"
 #include "hctl_element.h"
 #include "midicontroller.h"

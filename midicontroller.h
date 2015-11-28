@@ -1,7 +1,5 @@
-#ifndef MIDICONTROLLER_H
-#define MIDICONTROLLER_H
-
-#include <qobject.h>
+#pragma once
+#include <QtCore/qobject.h>
 
 class MidiController : public QObject  {
     
@@ -22,5 +20,3 @@ class MidiController : public QObject  {
   signals:
     void midiValueChanged(int);
 };
-                              
-#endif

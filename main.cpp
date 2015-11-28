@@ -1,16 +1,13 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <getopt.h>
-#include <qapplication.h>
-#include <qmainwindow.h>
-#include <qmenubar.h>
-#include <qpopupmenu.h>
-#include <qxml.h>
+#include "main.h"
+#include "utils.h"
 #include "parser.h"
 #include "mixlaunch.h"
-#include <alsa/asoundlib.h>
+
+#include <getopt.h>
+#include <QtCore/QTranslator>
+#include <QtGui/QMainWindow>
+#include <Qt3Support/Q3PopupMenu>
+#include <QtGui/QMenuBar>
 
 #ifdef WITHKDE
 #include <kaboutdata.h>
@@ -18,11 +15,8 @@
 #include "kamix.h"
 #include "kamixunique.h"
 #else
-#include <qtextcodec.h>
+#include <QtCore/QTextCodec>
 #endif
-
-#include "main.h"
-#include "utils.h"
 
 #ifdef WITHKDE
 KAMixUnique* app = 0;
@@ -93,11 +87,10 @@ int main(int argc, char *argv[])
   int getopt_return;
   int option_index;
   int channel = -1;
-  int l1;
   int mode = 0; // Full Size
   QString ctl_name = "hw:0";
   QString xml_name = "NO_NAME_SPECIFIED";
-  bool verbose = false;
+  bool verbose = false; (void)verbose;
   bool printDefaultGui = false;
   QString qs, qs2, driver_name;
 
@@ -211,7 +204,7 @@ int main(int argc, char *argv[])
     top->setCaption(i18n("QAMix"));
 
 //  Mixer *mixer = new Mixer(ctl_name, xml_name, top);
-  MixLaunch *mixLaunch = new MixLaunch(ctl_name, xml_name, mode, top);
+    MixLaunch *mixLaunch = new MixLaunch(ctl_name, xml_name, mode, top, "mixlaunch");
 //  if (verbose) {
 //    mixer->listControls();
 //  }
@@ -222,12 +215,12 @@ int main(int argc, char *argv[])
 #endif
 
   mixLaunch->setChannel(channel);
-  QPopupMenu *filePopup = new QPopupMenu(top);
-  QPopupMenu *viewPopup = new QPopupMenu(top);
+  Q3PopupMenu *filePopup = new Q3PopupMenu(top);
+  Q3PopupMenu *viewPopup = new Q3PopupMenu(top);
   viewPopup->setCheckable(true);
-  QPopupMenu *devicePopup = new QPopupMenu(top);
+  Q3PopupMenu *devicePopup = new Q3PopupMenu(top);
   devicePopup->setCheckable(true);
-  QPopupMenu *aboutMenu = new QPopupMenu(top);
+  Q3PopupMenu *aboutMenu = new Q3PopupMenu(top);
   mixLaunch->hide_ids[0] = top->menuBar()->insertItem(i18n("&File"), filePopup);
   mixLaunch->hide_ids[3] = top->menuBar()->insertItem(i18n("&View"), viewPopup);
   mixLaunch->viewPopup = viewPopup;

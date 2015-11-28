@@ -1,13 +1,9 @@
-#ifndef MIDIGUICOMPONENT_H
-#define MIDIGUICOMPONENT_H
-
-#include <qptrlist.h>
-#include <qvbox.h>
+#pragma once
 #include "hctldata.h"
 #include "midicontroller.h"
 #include "midicontrollerlist.h"
 
-class MidiGUIcomponent : public QVBox {
+class MidiGUIcomponent : public Q3VBox {
 
 Q_OBJECT
 
@@ -15,7 +11,7 @@ public:
   bool controllerOK;
         
 public:
-  MidiGUIcomponent(QWidget * parent, const char * name=0);
+  MidiGUIcomponent(QWidget * parent, QString name);
   ~MidiGUIcomponent();
   MidiControllerList midiControllerList;
   void connectToController(MidiController *p_midiController);
@@ -30,5 +26,3 @@ public slots:
   void midiValueChanged(int);
   void disconnectController(int);
 };
-  
-#endif

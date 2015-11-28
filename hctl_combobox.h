@@ -1,11 +1,7 @@
-#ifndef HCTL_COMBOBOX_H
-#define HCTL_COMBOBOX_H
-
-#include <qptrlist.h>
-#include <qcombobox.h>
-#include <qlcdnumber.h>
-#include <qlabel.h>
-#include <qvbox.h>
+#pragma once
+#include <QtGui/qcombobox.h>
+#include <QtGui/qlcdnumber.h>
+#include <QtGui/qlabel.h>
 #include <alsa/asoundlib.h>
 #include "hctl_element.h"
 #include "midicombobox.h"
@@ -18,11 +14,11 @@ class HctlComboBox : public HctlElement  {
     virtual void updateView();
 
   public:
-    QPtrList<MidiComboBox> comboboxList;
+    Q3PtrList<MidiComboBox> comboboxList;
     QLabel *label;
         
   public:
-    HctlComboBox(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const char * name = 0);
+    HctlComboBox(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, QString name);
     ~HctlComboBox();
     virtual void midiConnect(int index, MidiController *midiController);
     
@@ -30,5 +26,3 @@ class HctlComboBox : public HctlElement  {
     void comboboxValueChanged(int val);  
     
 };
-                              
-#endif

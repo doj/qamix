@@ -1,18 +1,12 @@
-#include <math.h>
-#include <qslider.h>
-#include <qvbox.h>
-#include <qhbox.h>
-#include <qstring.h>
-#include <qfontmetrics.h>
-#include <qlabel.h>
-#include <qcolor.h>
-#include <alsa/asoundlib.h>
 #include "hctl_element.h"
 #include "hctl_slider.h"
 #include "midislider.h"
 #include "midicontroller.h"
+#include <math.h>
+#include <QtGui/QFontMetrics>
+#include <alsa/asoundlib.h>
 
-HctlSlider::HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const char *name, sliderValueStyleEnum p_sliderValueStyle, bool p_single) 
+HctlSlider::HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, QString name, sliderValueStyleEnum p_sliderValueStyle, bool p_single) 
                                         : HctlElement(p_hctl_elem, parent, name) {
 
   long min, max, step, value;
@@ -22,7 +16,7 @@ HctlSlider::HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const cha
   count = snd_ctl_elem_info_get_count(elem_info);
   single = p_single;
   sliderValueStyle = p_sliderValueStyle;
-  QHBox *sliderBox = new QHBox(this);
+  Q3HBox *sliderBox = new Q3HBox(this);
   if (single) {
     count = 1;
   }
@@ -31,9 +25,9 @@ HctlSlider::HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const cha
     max = snd_ctl_elem_info_get_max(elem_info);
     step = snd_ctl_elem_info_get_step(elem_info);
     value = snd_ctl_elem_value_get_integer(elem_value, l1);
-    QVBox *vBox = new QVBox(sliderBox);
+    Q3VBox *vBox = new Q3VBox(sliderBox);
     if (sliderValueStyle) {
-      QHBox *labelBox = new QHBox(vBox);
+      Q3HBox *labelBox = new Q3HBox(vBox);
       new QWidget(labelBox);
       QLabel *number = new QLabel(labelBox);
       new QWidget(labelBox);
@@ -51,7 +45,10 @@ HctlSlider::HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const cha
         number->setFrameStyle (QFrame::Panel | QFrame::Sunken);
         number->setMinimumWidth(qfm->width("MMM", 3));
         number->setLineWidth(3);
-        number->setPaletteBackgroundColor(QColor(190, 250, 190));
+        /* \todo
+	   number->setPaletteBackgroundColor(QColor(190, 250, 190));
+	   number->setBackgroundRole(QPalette::ColorRole role);
+	*/
         delete qfm;
       }
       number->setText(qs);
@@ -60,15 +57,15 @@ HctlSlider::HctlSlider(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const cha
     sliderList.append(slider);
     QObject::connect(slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
   }
-  if (name) {
-      QHBox *labelBox = new QHBox(this);
+  if (! name.isEmpty()) {
+      Q3HBox *labelBox = new Q3HBox(this);
       new QWidget(labelBox);
       label = new QLabel(labelBox);
       label->setText(name);
       new QWidget(labelBox);
   }
   if (count > 1) {
-    QHBox *lockContainer = new QHBox(this);
+    Q3HBox *lockContainer = new Q3HBox(this);
     new QWidget(lockContainer);
     lockBox = new QCheckBox(lockContainer);
     new QWidget(lockContainer);
@@ -90,7 +87,7 @@ void HctlSlider::sliderValueChanged(int val) {
 
   count = snd_ctl_elem_info_get_count(elem_info);
   if (single) {
-    max = sliderList.at(0)->slider->maxValue();
+    max = sliderList.at(0)->slider->maximum();
     if (sliderValueStyle) {
       if ((sliderValueStyle == sliderValueStyle_SimpleNumbers100)
         ||(sliderValueStyle == sliderValueStyle_FrameNumbers100)) {
@@ -107,7 +104,7 @@ void HctlSlider::sliderValueChanged(int val) {
   } else {
     if (!lock) {
       index = sliderList.find((MidiSlider *)sender());
-      max = ((MidiSlider *)sender())->slider->maxValue();
+      max = ((MidiSlider *)sender())->slider->maximum();
       if (sliderValueStyle) {
         if ((sliderValueStyle == sliderValueStyle_SimpleNumbers100)
           ||(sliderValueStyle == sliderValueStyle_FrameNumbers100)) {
@@ -120,8 +117,8 @@ void HctlSlider::sliderValueChanged(int val) {
       snd_ctl_elem_value_set_integer(elem_value, index, max - val);
       snd_hctl_elem_write(hctl_elem, elem_value);
     } else {
-      for (index = 0; index < sliderList.count(); index++) {
-        max = sliderList.at(index)->slider->maxValue();
+      for (unsigned index = 0; index < sliderList.count(); ++index) {
+        max = sliderList.at(index)->slider->maximum();
         if (sliderValueStyle) {
           if ((sliderValueStyle == sliderValueStyle_SimpleNumbers100) 
             ||(sliderValueStyle == sliderValueStyle_FrameNumbers100)) {
@@ -140,11 +137,11 @@ void HctlSlider::sliderValueChanged(int val) {
 
 void HctlSlider::updateView() {
 
-  int l1, val, max;
+  int val, max;
   QString qs;
 
-  for (l1 = 0; l1 < sliderList.count(); l1++) {
-    max = sliderList.at(l1)->slider->maxValue();
+  for (unsigned l1 = 0; l1 < sliderList.count(); ++l1) {
+    max = sliderList.at(l1)->slider->maximum();
     val = snd_ctl_elem_value_get_integer(elem_value, l1);
     sliderList.at(l1)->updateSlider(max - val);
     if (sliderValueStyle) {

@@ -1,45 +1,40 @@
-#include <math.h>
-#include <qcombobox.h>
-#include <qvbox.h>
-#include <qhbox.h>
-#include <qstrlist.h>
-#include <alsa/asoundlib.h>
 #include "hctl_element.h"
 #include "hctl_combobox.h"
 #include "midicombobox.h"
 #include "midicontroller.h"
+#include <math.h>
+#include <alsa/asoundlib.h>
+#include <Qt3Support/Q3VBox>
 
-HctlComboBox::HctlComboBox(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const char * name) 
+HctlComboBox::HctlComboBox(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, QString name)
                                         : HctlElement(p_hctl_elem, parent, name) {
 
   int l1, l2, item_count, count, value;
-  QString qs;
-  
+
   count = snd_ctl_elem_info_get_count(elem_info);
-  QHBox *comboboxBox = new QHBox(this);
+  Q3HBox *comboboxBox = new Q3HBox(this);
   for (l1 = 0; l1 < count; l1++) {
     item_count = snd_ctl_elem_info_get_items(elem_info);
-    QStrList *itemNames = new QStrList(true);
+    QStringList itemNames;
     for (l2 = 0; l2 < item_count; l2++) {
       snd_ctl_elem_info_set_item(elem_info, l2);
       updateInfo();
-      qs = QString(snd_ctl_elem_info_get_item_name(elem_info));
-      itemNames->append(qs);
+      itemNames.append(snd_ctl_elem_info_get_item_name(elem_info));
     }
     value = snd_ctl_elem_value_get_enumerated(elem_value, l1);
     MidiComboBox *combobox = new MidiComboBox(itemNames, value, comboboxBox, name);
     comboboxList.append(combobox);
     QObject::connect(combobox, SIGNAL(valueChanged(int)), this, SLOT(comboboxValueChanged(int)));
   }
-  if (name) {
-      QHBox *labelBox = new QHBox(this);
+  if (! name.isEmpty()) {
+      Q3HBox *labelBox = new Q3HBox(this);
       new QWidget(labelBox);
       label = new QLabel(labelBox);
       label->setText(name);
       new QWidget(labelBox);
   }
   if (count > 1) {
-    QHBox *lockContainer = new QHBox(this);
+    Q3HBox *lockContainer = new Q3HBox(this);
     new QWidget(lockContainer); 
     lockBox = new QCheckBox(lockContainer);
     new QWidget(lockContainer); 
@@ -54,8 +49,8 @@ HctlComboBox::~HctlComboBox() {
 }
 
 void HctlComboBox::comboboxValueChanged(int val) {
-  
-  int index;
+
+  unsigned index;
 
   if (!lock) {
     index = comboboxList.find((MidiComboBox *)sender());
@@ -71,10 +66,8 @@ void HctlComboBox::comboboxValueChanged(int val) {
 
 void HctlComboBox::updateView() {
 
-  int l1, val;
-
-  for (l1 = 0; l1 < comboboxList.count(); l1++) {
-    val = snd_ctl_elem_value_get_enumerated(elem_value, l1);
+  for (unsigned l1 = 0; l1 < comboboxList.count(); l1++) {
+    const int val = snd_ctl_elem_value_get_enumerated(elem_value, l1);
     comboboxList.at(l1)->updateComboBox(val);
   }
 }

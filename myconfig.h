@@ -4,15 +4,12 @@
  *  Author: Arvin Schnell <arvin@suse.de>
  */
 
-
-#ifndef MYCONFIG_H
-#define MYCONFIG_H
-
+#pragma once
 
 #ifdef WITHKDE
 #include <kconfig.h>
 #else
-#include <qsettings.h>
+#include <QtCore/QSettings>
 #endif
 
 
@@ -55,6 +52,3 @@ private:
     QString mkbigkey (const char*, const char*) const;
 #endif
 };
-
-
-#endif

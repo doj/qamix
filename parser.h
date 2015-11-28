@@ -1,17 +1,11 @@
-#ifndef PARSER_H
-#define PARSER_H
+#pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <qstring.h>
-#include <qxml.h>
-#include <qptrlist.h>
-#include <qvaluelist.h>
 #include "gui.h"
 #include "hctldata.h"
 #include "hctl_slider.h"
 #include "midicontroller.h"
 #include "midicontrollerlist.h"
+#include <QtXml/qxml.h>
 
 #define MIXER_FULL     0
 #define MIXER_MASTER   1
@@ -40,5 +34,3 @@ class Parser : public QXmlDefaultHandler
     bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName);
     bool characters(const QString& ch); 
 };
-
-#endif

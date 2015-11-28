@@ -1,12 +1,10 @@
-#ifndef HCTL_ELEMT_H
-#define HCTL_ELEMT_H
-
-#include <qvbox.h>
-#include <qcheckbox.h>
+#pragma once
+#include <QtGui/qcheckbox.h>
 #include <alsa/asoundlib.h>
 #include "midicontroller.h"
+#include <Qt3Support/Q3VBox>
 
-class HctlElement : public QVBox {
+class HctlElement : public Q3VBox {
    
   Q_OBJECT  
 
@@ -23,7 +21,7 @@ class HctlElement : public QVBox {
     QCheckBox *lockBox;
      
   public:
-    HctlElement(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, const char * name = 0);
+    HctlElement(snd_hctl_elem_t *p_hctl_elem, QWidget * parent, QString name);
     ~HctlElement();
     virtual void midiConnect(int index, MidiController *midiController);
         
@@ -32,5 +30,3 @@ class HctlElement : public QVBox {
     void updateValue();
     void lockToggled(bool);
 };
-                              
-#endif

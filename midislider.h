@@ -1,9 +1,8 @@
 #ifndef MIDISLIDER_H
 #define MIDISLIDER_H
 
-#include <qslider.h>
-#include <qhbox.h>
-#include <qlabel.h>
+#include <QtGui/qslider.h>
+#include <QtGui/qlabel.h>
 #include "hctldata.h"
 #include "midicontroller.h"
 #include "midiguicomponent.h"
@@ -16,8 +15,8 @@ public:
   QSlider *slider;
   
 public:
-  MidiSlider(int minValue, int maxValue, int pageStep, int value, QSlider::Orientation orientation,
-             QWidget * parent, const char * name=0);
+  MidiSlider(int minValue, int maxValue, int pageStep, int value, Qt::Orientation orientation,
+             QWidget * parent, QString name);
   ~MidiSlider();
   virtual void setMidiValue(int value);
   virtual int getMidiValue();
