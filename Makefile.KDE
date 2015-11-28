@@ -1,3 +1,5 @@
+# -*- mode: Makefile; -*-
+
 QT_BASE_DIR=/usr/lib/qt3
 QT_LIB_DIR=$(QT_BASE_DIR)/lib
 QT_BIN_DIR=$(QT_BASE_DIR)/bin

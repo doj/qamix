@@ -22,7 +22,8 @@
 *.a
 *.lib
 
+# dependencies
+*.d
+
 # Executables
-*.exe
-*.out
-*.app
+qamix

@@ -10,7 +10,7 @@ Send comments to Dirk Jagdmann <doj@cubic.org>
 ## QAMix/KAMix version 0.0.7 by Matthias Nagorni
 
 Note: KAMix is the KDE version of QAMix. It is compiled from the same source
-with make -f make_kamix. The xml directories for KAMix are /usr/share/kamix
+with make -f Makefile.KDE The xml directories for KAMix are /usr/share/kamix
 and ~/.kamix.
 
 QAMix is a configurable mixer for ALSA. The interface is created while the

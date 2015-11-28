@@ -41,4 +41,3 @@ clean:
 	$(MOC) -o $@ $<
 
 -include $(CPP:.cpp=.d)
-# TODO: generate dependencies
