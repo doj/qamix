@@ -24,11 +24,7 @@ Mixer::Mixer(QString ctl_name, QString xml_name, int mode, QWidget *parent, QStr
 
     Parser *parser = new Parser(hctlData, gui, mode);
     if (xml_name.contains("NO_NAME_SPECIFIED")) {
-#ifdef WITHKDE
-	xmldir = "/.kamix/";
-#else
 	xmldir = "/.qamix/";  
-#endif
 	snd_ctl_card_info_alloca(&card_info);
 	snd_ctl_card_info(hctlData->ctl_handle, card_info);
 	driver_name = QString(snd_ctl_card_info_get_driver(card_info));

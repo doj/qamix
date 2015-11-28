@@ -6,28 +6,15 @@
 
 #pragma once
 
-#ifdef WITHKDE
-#include <kconfig.h>
-#else
 #include <QtCore/QSettings>
-#endif
-
 
 class MyConfig
 {
 public:
 
-#ifdef WITHKDE
-    MyConfig (KConfig* kconfig) : kconfig (kconfig) { }
-#else
     MyConfig (QSettings* qsettings) : qsettings (qsettings) { }
-#endif
 
-#ifdef WITHKDE
-    KConfig* get_kconfig () { return kconfig; }
-#else
     QSettings* get_qsettings () { return qsettings; }
-#endif
 
     QString readString (const char*, const char*, const char*);
     void writeString (const char*, const char*, const char*);
@@ -45,10 +32,6 @@ public:
 
 private:
 
-#ifdef WITHKDE
-    KConfig* kconfig;
-#else
     QSettings* qsettings;
     QString mkbigkey (const char*, const char*) const;
-#endif
 };

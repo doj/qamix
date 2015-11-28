@@ -1,3 +1,2 @@
 - send MIDI controller values upon start
 - check how to install the files in po/
-- it's probably not worth fixing the KDE build

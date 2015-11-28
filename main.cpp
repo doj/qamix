@@ -9,26 +9,11 @@
 #include <Qt3Support/Q3PopupMenu>
 #include <QtGui/QMenuBar>
 
-#ifdef WITHKDE
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
-#include "kamix.h"
-#include "kamixunique.h"
-#else
 #include <QtCore/QTextCodec>
-#endif
 
-#ifdef WITHKDE
-KAMixUnique* app = 0;
-const char *aboutText =
-    "KAMix " QAMIX_VERSION "\nby Matthias Nagorni\n"
-    "KAMix is licensed under the GPL2.\n";
-#else
-//QApplication* app = 0;
 const char *aboutText =
     "QAMix " QAMIX_VERSION "\nby Matthias Nagorni\n"
     "QAMix is licensed under the GPL2.\n";
-#endif
 
 MyConfig* myconfig;
 
@@ -67,15 +52,6 @@ read_cards ()
     }
 }
 
-#ifdef WITHKDE
-static KCmdLineOptions options[] =
-        {{"device <alsa device>", I18N_NOOP("Mixer device"), "hw:0"},
-         {"gui <xml file>", I18N_NOOP("GUI description"), "NO_NAME_SPECIFIED"},
-         {"mode <num>", I18N_NOOP("GUI mode"), "0"},   
-         {"channel <num>", I18N_NOOP("MIDI channel"), "-1"},   
-         {"printDefaultGui", I18N_NOOP("Print default GUI"), 0},
-         {0, 0, 0}};
-#else
 static struct option options[] =
         {{"help", 0, 0, 'h'},
          {"device", 1, 0, 'd'},
@@ -85,7 +61,7 @@ static struct option options[] =
 //         {"verbose", 0, 0, 'v'},
          {"printDefaultGui", 0, 0, 'p'},
          {0, 0, 0, 0}};
-#endif
+
 int main(int argc, char *argv[])
 {
   read_cards ();
@@ -100,17 +76,6 @@ int main(int argc, char *argv[])
   bool printDefaultGui = false;
   QString qs, qs2, driver_name;
 
-#ifdef WITHKDE
-  for (int i = 1; i < argc; i++) {
-      if (strcmp (argv[i], "-session") == 0) {
-          fprintf (stderr, "KAmix session mode disabled.\n"
-                   "KAmix should be started from startkde.\n");
-          exit (EXIT_SUCCESS);
-      }
-  }
-#endif
-
-#ifndef WITHKDE
   auto app = new QApplication(argc, argv);
 
     while((getopt_return = getopt_long(argc, argv, "hvpc:g:m:d:", options, &option_index)) >= 0) {
@@ -145,50 +110,6 @@ int main(int argc, char *argv[])
         break;
     }
   }
-#endif
-
-#ifdef WITHKDE
-
-    KAboutData aboutData ("kamix", "KAMix", QAMIX_VERSION);
-    aboutData.addAuthor ("Matthias Nagorni", 0, "feedback@suse.de");
-    aboutData.addAuthor ("Arvin Schnell", 0, "feedback@suse.de");
-    KCmdLineArgs::init (argc, argv, &aboutData);
-    KCmdLineArgs::addCmdLineOptions(options);
-    KUniqueApplication::addCmdLineOptions(); 
-    KCmdLineArgs* args = KCmdLineArgs::parsedArgs ();
-    if (args->isSet("printDefaultGui")) {
-      printDefaultGui = true;
-    }
-    ctl_name=args->getOption("device");
-    xml_name=args->getOption("gui");
-    mode = args->getOption("mode").toInt();
-    channel = args->getOption("channel").toInt();
-
-    if (!KUniqueApplication::start ())
-    {
-	printf ("already running\n");
-	exit (EXIT_FAILURE);
-    }
-
-    app = new KAMixUnique ();
-
-    myconfig = new MyConfig (app->config ());
-
-    QMainWindow *top = new QMainWindow();
-    top->setCaption("KAMix");
-
-//  Mixer *mixer = new Mixer(ctl_name, xml_name, top);
-  MixLaunch *mixLaunch = new MixLaunch(ctl_name, xml_name, mode, top);
-//  if (verbose) {
-//    mixer->listControls();
-//  }
-  if (printDefaultGui) {
-    mixLaunch->printDefaultGui();
-  }
-
-    KAMix* kamix = new KAMix (0, 0, top, mixLaunch, ctl_name, xml_name, mode);
-
-#else
 
     myconfig = new MyConfig (new QSettings);
 
@@ -217,8 +138,6 @@ int main(int argc, char *argv[])
     mixLaunch->printDefaultGui();
   }
 
-#endif
-
   mixLaunch->setChannel(channel);
   Q3PopupMenu *filePopup = new Q3PopupMenu(top);
   Q3PopupMenu *viewPopup = new Q3PopupMenu(top);
@@ -233,11 +152,6 @@ int main(int argc, char *argv[])
   mixLaunch->devicePopup = devicePopup;
   top->menuBar()->insertSeparator();
   mixLaunch->hide_ids[2] = top->menuBar()->insertItem(i18n("&About"), aboutMenu);
-#ifdef WITHKDE
-  for (l1 = 0; l1 < 4; l1++) {
-    top->menuBar()->setItemVisible(mixLaunch->hide_ids[l1], false);
-  }
-#endif
   filePopup->insertItem(i18n("&Open"), mixLaunch, SLOT(openMixer()));
   filePopup->insertItem(i18n("&Quit"), app, SLOT(quit()));
   viewPopup->insertItem(i18n("&Full"), 0, 0);
@@ -245,7 +159,6 @@ int main(int argc, char *argv[])
   viewPopup->insertItem(i18n("&Simple"), 2, 2);
   aboutMenu->insertItem(i18n("About QAMix"), mixLaunch, SLOT(displayAbout()));
 
-// #ifndef WITHKDE
   int deviceCount = 0;
   for (QStringList::Iterator iter = card_list.begin (); iter != card_list.end ();
        ++iter)
@@ -258,7 +171,6 @@ int main(int argc, char *argv[])
       */
       deviceCount++;
   }
-// #endif
 
   viewPopup->setItemChecked(mode, true);
   QObject::connect(devicePopup, SIGNAL(activated(int)), mixLaunch, SLOT(newDevice(int)));
@@ -266,16 +178,7 @@ int main(int argc, char *argv[])
   QObject::connect(app, SIGNAL(aboutToQuit()), mixLaunch, SLOT(closeMixer()));
   top->setCentralWidget(mixLaunch);
 
-#ifdef WITHKDE
-  app->setMainWidget (kamix);
-  app->setMixerWindow(top);
-  kamix->show ();
-//  kamix->setNewMode(kamix->mode_ids[mode]);
-//  kamix->setNewDevice(kamix->device_ids[0]);
-#else
   app->setMainWidget(top);
   top->show();
-#endif
-
   return app->exec();
 }

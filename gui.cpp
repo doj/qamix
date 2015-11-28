@@ -1,6 +1,5 @@
 #include <QtGui/qpushbutton.h>
 #include <QtCore/qfile.h>
-//#include <QtCore/qptrstack.h>
 #include <QtGui/qframe.h>
 #include <QtGui/qgroupbox.h>
 #include "gui.h"

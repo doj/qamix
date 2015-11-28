@@ -9,10 +9,6 @@ Send comments to Dirk Jagdmann <doj@cubic.org>
 
 ## QAMix/KAMix version 0.0.7 by Matthias Nagorni
 
-Note: KAMix is the KDE version of QAMix. It is compiled from the same source
-with make -f Makefile.KDE The xml directories for KAMix are /usr/share/kamix
-and ~/.kamix.
-
 QAMix is a configurable mixer for ALSA. The interface is created while the
 application parses an XML file. The GUI description depends on the
 soundcard. Therefore QAMix derives the filename from the ALSA driver name.

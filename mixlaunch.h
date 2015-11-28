@@ -1,23 +1,8 @@
-#ifndef MIXLAUNCH_H
-#define MIXLAUNCH_H
-
+#pragma once
 #include "mixer.h"
 #include <QtCore/qnamespace.h>
 #include <Qt3Support/Q3MainWindow>
 #include <Qt3Support/Q3PopupMenu>
-
-#if 0
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <qobject.h>
-#include <qwidget.h>
-#include <qmainwindow.h>
-#include <qvbox.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <alsa/asoundlib.h>
-#endif
 
 class MixLaunch : public Q3VBox
 {
@@ -55,5 +40,3 @@ class MixLaunch : public Q3VBox
     void updateCaption();
     void setChannel(int p_channel);
 };
-  
-#endif

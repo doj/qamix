@@ -6,27 +6,7 @@
 #include <Qt3Support/Q3VBox>
 #include <QtCore/QSocketNotifier>
 
-#if 0
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <qstring.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qsocketnotifier.h>
-#include <qhbox.h>
-#include <qptrlist.h>
-#include <qmessagebox.h>
-#include <qlist.h>
-#include <qxml.h>
-#include <alsa/asoundlib.h>
-#endif
-
-#ifdef WITHKDE
-#define QAMIX_SHARE_DIR "/usr/share/kamix"
-#else
 #define QAMIX_SHARE_DIR "/usr/share/qamix"
-#endif
 
 class Mixer : public Q3VBox
 {

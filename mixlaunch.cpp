@@ -40,11 +40,7 @@ MixLaunch::~MixLaunch() {
 
 void MixLaunch::openMixer() {
  
-#ifdef WITHKDE
-    xml_name = QString(QFileDialog::getOpenFileName("/usr/share/kamix", "KAMix GUI description (*.xml)"));
-#else
     xml_name = QString(QFileDialog::getOpenFileName("/usr/share/qamix", "QAMix GUI description (*.xml)"));
-#endif
     if (xml_name.isEmpty()) {
 	return;
   } else {
@@ -71,11 +67,7 @@ void MixLaunch::closeMixer() {
 extern const char *aboutText;
 void MixLaunch::displayAbout() {
 
-#ifdef WITHKDE
-    auto title = i18n("About KAMix");
-#else
     auto title = i18n("About QAMix");
-#endif
     aboutWidget->about(this, title, aboutText);
     aboutWidget->raise();
 }
@@ -150,11 +142,7 @@ void MixLaunch::updateCaption() {
   snd_ctl_card_info_alloca(&card_info);
   snd_ctl_card_info(mixer->hctlData->ctl_handle, card_info);
   driver_name = QString(snd_ctl_card_info_get_driver(card_info));
-#ifdef WITHKDE
-  qs.sprintf("KAMix " QAMIX_VERSION "  -  %s", driver_name.latin1());
-#else
   qs.sprintf("QAMix " QAMIX_VERSION "  -  %s", driver_name.latin1());
-#endif
   mainWindow->setCaption(qs);
 }
 
@@ -169,7 +157,6 @@ void MixLaunch::newMode(int id) {
 
   Q3PopupMenu *viewMenu = (Q3PopupMenu *)sender();
   mode = id;
-#ifndef WITHKDE
   if (mode == 1) {
     for (l1 = 0; l1 < 3; l1++) {
       mainWindow->menuBar()->setItemVisible(hide_ids[l1], false);
@@ -183,7 +170,6 @@ void MixLaunch::newMode(int id) {
     viewMenu->setItemChecked(l1, false);
   }
   viewMenu->setItemChecked(mode, true);
-#endif
   closeMixer();
   mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
@@ -203,7 +189,6 @@ void MixLaunch::newModeParam(int id) {
 //  mode = viewMenu->itemParameter(id);
   mode = id;
 //  fprintf(stderr, "mode = %d\n", mode);
-#ifndef WITHKDE
   if (mode == 1) {
     for (l1 = 0; l1 < 3; l1++) {
       mainWindow->menuBar()->setItemVisible(hide_ids[l1], false);
@@ -221,7 +206,6 @@ void MixLaunch::newModeParam(int id) {
   }
 //  viewMenu->setItemChecked(id, true);
   viewPopup->setItemChecked(id, true);
-#endif
   closeMixer();
   mixer = new Mixer(ctl_name, xml_name, mode, this, "mixer");
   if (seqHandle) {
@@ -244,11 +228,7 @@ snd_seq_t *MixLaunch::open_seq() {
     return(NULL);
 //    exit(1);
   }
-#ifdef WITHKDE
-  snd_seq_set_client_name(seq_handle, "KAMix");
-#else
   snd_seq_set_client_name(seq_handle, "QAMix");
-#endif
   clientid = snd_seq_client_id(seq_handle);
   (void)clientid;
   if ((portid = snd_seq_create_simple_port(seq_handle, "qamix",
